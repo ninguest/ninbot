@@ -1,2 +1,1 @@
-# ninmusicbot
-NIN MusicBot
+NIN Bot
