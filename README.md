@@ -1,0 +1,2 @@
+# ninmusicbot
+NIN MusicBot
