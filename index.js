@@ -1,6 +1,7 @@
 const { CommandoClient } = require('discord.js-commando');
 const { Structures } = require('discord.js');
 const path = require('path');
+
 const { prefix, token, discord_owner_id } = require('./config.json');
 
 Structures.extend('Guild', function(Guild) {
@@ -36,7 +37,8 @@ client.registry
     ['music', 'Music Command Group'],
     ['gifs', 'Gif Command Group'],
     ['other', 'random types of commands group'],
-    ['guild', 'guild related commands']
+    ['guild', 'guild related commands'],
+    ['nsfw', 'nsfw related commands']
   ])
   .registerDefaultGroups()
   .registerDefaultCommands({
@@ -81,4 +83,5 @@ client.on('guildMemberAdd', member => {
   channel.send(`Welcome ${member}!`);
 });
 
-client.login(process.env.TOKEN);
+//client.login(process.env.TOKEN);
+client.login(token);
