@@ -23,8 +23,8 @@ module.exports = class MusicTriviaCommand extends Command {
           key: 'numberOfSongs',
           prompt: 'What is the number of songs you want the quiz to have?',
           type: 'integer',
-          default: 5,
-          max: 15
+          default: 10,
+          max: 30
         }
       ]
     });
@@ -54,7 +54,7 @@ module.exports = class MusicTriviaCommand extends Command {
       .setColor('#ff7373')
       .setTitle('Starting Music Quiz')
       .setDescription(
-        `Get ready! There are ${numberOfSongs} songs, you have 30 seconds to guess either the singer/band or the name of the song. Good luck!
+        `Get ready! There are ${numberOfSongs} songs, you have 50 seconds to guess the anime name, the singer/band or the name of the song. Good luck!
         You can end the trivia at any point by using the end-trivia command`
       );
     message.say(infoEmbed);
@@ -66,6 +66,7 @@ module.exports = class MusicTriviaCommand extends Command {
         url: randomXVideoLinks[i].url,
         singer: randomXVideoLinks[i].singer,
         title: randomXVideoLinks[i].title,
+        anime: randomXVideoLinks[i].anime,
         voiceChannel
       };
       message.guild.triviaData.triviaQueue.push(song);
@@ -98,23 +99,26 @@ module.exports = class MusicTriviaCommand extends Command {
           dispatcher.setVolume(message.guild.musicData.volume);
           let songNameFound = false;
           let songSingerFound = false;
+          let songAnimeFound = false;
 
           const filter = msg =>
             message.guild.triviaData.triviaScore.has(msg.author.username);
           const collector = message.channel.createMessageCollector(filter, {
-            time: 30000
+            time: 50000
           });
 
           collector.on('collect', msg => {
             if (!message.guild.triviaData.triviaScore.has(msg.author.username))
               return;
             if (msg.content.startsWith(prefix)) return;
+            
+            
             // if user guessed song name
             if (msg.content.toLowerCase() === queue[0].title.toLowerCase()) {
               if (songNameFound) return; // if song name already found
               songNameFound = true;
 
-              if (songNameFound && songSingerFound) {
+              if (songNameFound && songSingerFound && songAnimeFound) {
                 message.guild.triviaData.triviaScore.set(
                   msg.author.username,
                   message.guild.triviaData.triviaScore.get(
@@ -131,13 +135,16 @@ module.exports = class MusicTriviaCommand extends Command {
               );
               msg.react('☑');
             }
+            
+            
             // if user guessed singer
             else if (
               msg.content.toLowerCase() === queue[0].singer.toLowerCase()
             ) {
-              if (songSingerFound) return;
+              if (songSingerFound) return; //if singer already found
               songSingerFound = true;
-              if (songNameFound && songSingerFound) {
+
+              if (songNameFound && songSingerFound && songAnimeFound) {
                 message.guild.triviaData.triviaScore.set(
                   msg.author.username,
                   message.guild.triviaData.triviaScore.get(
@@ -154,19 +161,96 @@ module.exports = class MusicTriviaCommand extends Command {
                   1
               );
               msg.react('☑');
-            } else if (
-              msg.content.toLowerCase() ===
-                queue[0].singer.toLowerCase() +
-                  ' ' +
-                  queue[0].title.toLowerCase() ||
+            } 
+
+
+
+            //if user guessed Anime name
+            else if (
+              msg.content.toLowerCase() === queue[0].anime.toLowerCase()
+            ) {
+                if (songAnimeFound) return;
+                songAnimeFound = true;
+                if (songNameFound && songSingerFound && songAnimeFound) {
+                  message.guild.triviaData.triviaScore.set(
+                    msg.author.username,
+                    message.guild.triviaData.triviaScore.get(
+                      msg.author.username
+                    ) + 1
+                  );
+                  msg.react('☑');
+                  return collector.stop();
+                }
+                message.guild.triviaData.triviaScore.set(
+                  msg.author.username,
+                message.guild.triviaData.triviaScore.get(msg.author.username) +
+                  1
+              );
+              msg.react('☑');
+            }
+
+
+
+            //special condition
+            else if (
               msg.content.toLowerCase() ===
                 queue[0].title.toLowerCase() +
                   ' ' +
+                  queue[0].singer.toLowerCase() +
+                  ' ' +
+                  queue[0].anime.toLowerCase()
+                  
+                  ||
+
+              msg.content.toLowerCase() ===
+                queue[0].title.toLowerCase() +
+                  ' ' +
+                  queue[0].anime.toLowerCase() +
+                  ' ' +
                   queue[0].singer.toLowerCase()
-            ) {
+                  
+                  ||
+
+              msg.content.toLowerCase() ===
+                queue[0].anime.toLowerCase() +
+                    ' ' +
+                  queue[0].singer.toLowerCase() +
+                    ' ' +
+                  queue[0].title.toLowerCase()
+                    
+                  ||
+  
+              msg.content.toLowerCase() ===
+                queue[0].anime.toLowerCase() +
+                    ' ' +
+                  queue[0].title.toLowerCase() +
+                    ' ' +
+                  queue[0].singer.toLowerCase()
+                        
+                  ||
+
+              msg.content.toLowerCase() ===
+                queue[0].singer.toLowerCase() +
+                    ' ' +
+                  queue[0].anime.toLowerCase() +
+                    ' ' +
+                  queue[0].title.toLowerCase()
+                            
+                  ||
+                
+              msg.content.toLowerCase() ===
+                queue[0].singer.toLowerCase() +
+                  ' ' +
+                queue[0].title.toLowerCase() +
+                  ' ' +
+                queue[0].anime.toLowerCase()
+              ) 
+              
+              {
               if (
-                (songSingerFound && !songNameFound) ||
-                (songNameFound && !songSingerFound)
+                (songSingerFound && !songNameFound && !songAnimeFound) ||
+                (songNameFound && !songSingerFound && !songAnimeFound) ||
+                (songAnimeFound && !songNameFound && !songSingerFound) 
               ) {
                 message.guild.triviaData.triviaScore.set(
                   msg.author.username,
@@ -209,9 +293,10 @@ module.exports = class MusicTriviaCommand extends Command {
               })
             );
 
-            const song = `${classThis.capitalize_Words(
-              queue[0].singer
-            )}: ${classThis.capitalize_Words(queue[0].title)}`;
+            const song = 
+            `${classThis.capitalize_Words(queue[0].title)} by  
+            ${classThis.capitalize_Words(queue[0].singer)} from the anime:  
+            ${classThis.capitalize_Words(queue[0].anime)}`;
 
             const embed = new MessageEmbed()
               .setColor('#ff7373')
