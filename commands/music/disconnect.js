@@ -9,7 +9,7 @@ module.exports = class DisconnectCommand extends Command {
       group: 'music',
       memberName: 'disconnect',
       guildOnly: true,
-      description: 'Leave to voice channel'
+      description: 'Leave voice channel'
     });
   }
 
