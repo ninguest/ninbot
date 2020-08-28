@@ -26,10 +26,10 @@ module.exports = class ResumeCommand extends Command {
       typeof message.guild.musicData.songDispatcher == 'undefined' ||
       message.guild.musicData.songDispatcher === null
     ) {
-      return message.reply('There is no song playing right now!');
+      return message.reply('⚠️ There is no song playing right now!');
     } else if (voiceChannel.id !== message.guild.me.voice.channel.id) {
       message.reply(
-        `You must be in the same voice channel as the bot's in order to use that!`
+        `⚠️ You must be in the same voice channel as the bot's in order to use that!`
       );
       return;
     }

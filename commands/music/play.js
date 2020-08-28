@@ -44,6 +44,9 @@ module.exports = class PlayCommand extends Command {
       return;
     }
 
+    message.channel.startTyping();
+    
+
     if (
       // if the user entered a youtube playlist url
       query.match(
@@ -145,7 +148,7 @@ module.exports = class PlayCommand extends Command {
         return;
       }
     }
-
+    
     // if user provided a song/video name
     const videos = await youtube.searchVideos(query, 5).catch(async function() {
       await message.say(
@@ -159,7 +162,10 @@ module.exports = class PlayCommand extends Command {
       );
       return;
     }
+
     const vidNameArr = [];
+
+    
     for (let i = 0; i < videos.length; i++) {
       vidNameArr.push(`${i + 1}: ${videos[i].title}`);
     }
@@ -253,12 +259,13 @@ module.exports = class PlayCommand extends Command {
         );
         return;
       });
+      message.channel.stopTyping();
   }
   static playSong(queue, message) {
     const classThis = this; // use classThis instead of 'this' because of lexical scope below
     queue[0].voiceChannel
       .join()
-      .then(function(connection) {
+     .then(function(connection) {
         const dispatcher = connection
           .play(
             ytdl(queue[0].url, {

@@ -16,12 +16,12 @@ module.exports = class QueueCommand extends Command {
   run(message) {
 
     if (message.guild.triviaData.isTriviaRunning == true){
-       message.say("You can't check queue while playing music quiz! That is Cheating");
+       message.say("⚠️ You can't check queue while playing music quiz! That is Cheating");
       return;
     }
-    
+
     if (message.guild.musicData.queue.length == 0)
-      return message.say('There are no songs in queue!');
+      return message.say('⚠️ There are no songs in queue!');
     const titleArray = [];
     /* eslint-disable */
     // display only first 10 items in queue

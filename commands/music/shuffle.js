@@ -28,13 +28,13 @@ module.exports = class ShuffleQueueCommand extends Command {
       return message.reply('There is no song playing right now!');
     } else if (voiceChannel.id !== message.guild.me.voice.channel.id) {
       message.reply(
-        `You must be in the same voice channel as the bot's in order to use that!`
+        `⚠️ You must be in the same voice channel as the bot's in order to use that!`
       );
       return;
     }
 
     if (message.guild.musicData.queue.length < 1)
-      return message.say('There are no songs in queue');
+      return message.say('⚠️ There are no songs in queue');
 
     shuffleQueue(message.guild.musicData.queue);
 

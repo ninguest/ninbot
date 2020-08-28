@@ -23,28 +23,28 @@ module.exports = class LoopQueueCommand extends Command {
   run(message, { numOfTimesToLoop }) {
 
     if (message.guild.triviaData.isTriviaRunning == true) {
-      message.say('Command declined while running music quiz');
+      message.say('⚠️ Command declined while running music quiz');
       return;
     }
 
     if (!message.guild.musicData.isPlaying) {
-      message.say('There is no song playing right now!');
+      message.say('⚠️ There is no song playing right now!');
       return;
     } else if (
       message.guild.musicData.isPlaying &&
       message.guild.triviaData.isTriviaRunning
     ) {
-      message.say('You cannot loop over a trivia!');
+      message.say('⚠️ You cannot loop over a trivia!');
       return;
     } else if (
       message.member.voice.channel.id !== message.guild.me.voice.channel.id
     ) {
       message.reply(
-        `You must be in the same voice channel as the bot's in order to use that!`
+        `⚠️ You must be in the same voice channel as the bot's in order to use that!`
       );
       return;
     } else if (message.guild.musicData.queue.length == 0) {
-      message.say(`I can't loop over an empty queue!`);
+      message.say(`⚠️ I can't loop over an empty queue!`);
       return;
     }
     const queue = message.guild.musicData.queue;

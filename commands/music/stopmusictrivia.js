@@ -29,7 +29,7 @@ module.exports = class StopMusicTriviaCommand extends Command {
 
     if (!message.guild.triviaData.triviaScore.has(message.author.username)) {
       return message.say(
-        'You need to participate in the trivia in order to end it'
+        '⚠️ You need to participate in the trivia in order to end it'
       );
     }
 

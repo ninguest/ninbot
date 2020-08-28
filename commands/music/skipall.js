@@ -26,7 +26,7 @@ module.exports = class SkipAllCommand extends Command {
       typeof message.guild.musicData.songDispatcher == 'undefined' ||
       message.guild.musicData.songDispatcher == null
     ) {
-      return message.reply('There is no song playing right now!');
+      return message.reply('⚠️ There is no song playing right now!');
     } else if (voiceChannel.id !== message.guild.me.voice.channel.id) {
       message.reply(
         `You must be in the same voice channel as the bot's in order to use that!`
@@ -34,7 +34,7 @@ module.exports = class SkipAllCommand extends Command {
       return;
     }
     if (!message.guild.musicData.queue)
-      return message.say('There are no songs in queue');
+      return message.say('⚠️ There are no songs in queue');
     message.guild.musicData.queue.length = 0; // clear queue
     message.guild.musicData.songDispatcher.end();
     return;

@@ -3,12 +3,12 @@ const { Command } = require('discord.js-commando');
 module.exports = class LeaveCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'leave',
-      aliases: ['end', 'l'],
+      name: 'clear',
+      aliases: ['end'],
       group: 'music',
-      memberName: 'leave',
+      memberName: 'clear',
       guildOnly: true,
-      description: 'Leaves voice channel if in one'
+      description: 'Clear all music in queue'
     });
   }
 
@@ -16,37 +16,47 @@ module.exports = class LeaveCommand extends Command {
     var voiceChannel = message.member.voice.channel;
     
     if (message.guild.triviaData.isTriviaRunning == true) {
-      message.say("I won't leave before you end the music quiz");
+      //message.say("I won't leave before you end the music quiz");
+      message.say("Command declined. To stop music quiz use the command: __***endquiz***__");
       return;
     }
 
     if (!voiceChannel) {
-      message.reply('Join a channel and try again');
+      message.reply('⚠️ Join a channel and try again');
       return;
-    } else if (
+    } 
+    else if (
       typeof message.guild.musicData.songDispatcher == 'undefined' ||
       message.guild.musicData.songDispatcher == null
     ) {
-      message.reply('There is no song playing right now!');
+      message.reply('⚠️ There is no song playing right now!');
       return;
-    } else if (voiceChannel.id !== message.guild.me.voice.channel.id) {
+    }
+      
+    else if (message.guild.musicData.songDispatcher == 0) {
+      message.reply('⚠️ There is no song playing right now!');
+      return;
+    }
+    else if (voiceChannel.id !== message.guild.me.voice.channel.id) {
       message.reply(
         `You must be in the same voice channel as the bot's in order to use that!`
       );
       return;
     } else if (!message.guild.musicData.queue) {
-      message.reply('There are no songs in queue');
+      message.reply('⚠️ There are no songs in queue');
       return;
     } else if (message.guild.musicData.songDispatcher.paused) {
-      message.guild.musicData.songDispatcher.resume();
-      setTimeout(() => {
-        message.guild.musicData.songDispatcher.end();
-      }, 100);
+      
+
       message.guild.musicData.queue.length = 0;
+      message.guild.musicData.songDispatcher.end();
+      message.reply("I ***cleared everything*** in the queue!");
+
       return;
     } else {
       message.guild.musicData.songDispatcher.end();
       message.guild.musicData.queue.length = 0;
+      message.reply("I ***cleared everything*** in the queue!");
       return;
     }
   }
