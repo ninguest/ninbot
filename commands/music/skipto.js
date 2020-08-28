@@ -21,6 +21,12 @@ module.exports = class SkipToCommand extends Command {
   }
 
   run(message, { songNumber }) {
+
+    if (message.guild.triviaData.isTriviaRunning == true) {
+      message.say('Command declined during music quiz');
+      return;
+    }
+
     if (songNumber < 1 && songNumber >= message.guild.musicData.queue.length) {
       return message.reply('Please enter a valid song number');
     }

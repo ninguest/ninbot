@@ -18,6 +18,12 @@ module.exports = class RemoveSongCommand extends Command {
     });
   }
   run(message, { songNumber }) {
+
+    if (message.guild.triviaData.isTriviaRunning == true) {
+      message.say("Don't remove the quiz question💦");
+      return;
+    }
+
     if (songNumber < 1 && songNumber >= message.guild.musicData.queue.length) {
       return message.reply('Please enter a valid song number');
     }

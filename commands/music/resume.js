@@ -14,6 +14,12 @@ module.exports = class ResumeCommand extends Command {
 
   run(message) {
     var voiceChannel = message.member.voice.channel;
+    
+    if (message.guild.triviaData.isTriviaRunning == true) {
+      message.say('Sorry, I cannot resume the music quiz.');
+      return;
+    }
+    
     if (!voiceChannel) return message.reply('Join a channel and try again');
 
     if (

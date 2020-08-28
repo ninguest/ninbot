@@ -27,6 +27,7 @@ module.exports = class VolumeCommand extends Command {
   }
 
   run(message, { wantedVolume }) {
+
     const voiceChannel = message.member.voice.channel;
     if (!voiceChannel) return message.reply('Join a channel and try again');
 

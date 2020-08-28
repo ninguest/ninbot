@@ -20,6 +20,12 @@ module.exports = class LoopCommand extends Command {
   }
 
   run(message, { numOfTimesToLoop }) {
+
+    if (message.guild.triviaData.isTriviaRunning == true) {
+      message.say('Command declined while running music quiz');
+      return;
+    }
+
     if (!message.guild.musicData.isPlaying) {
       return message.say('There is no song playing right now!');
     } else if (

@@ -14,6 +14,12 @@ module.exports = class SkipCommand extends Command {
 
   run(message) {
     const voiceChannel = message.member.voice.channel;
+
+    if (message.guild.triviaData.isTriviaRunning == true) {
+      message.say('Command declined during music quiz');
+      return;
+    }
+    
     if (!voiceChannel) return message.reply('Join a channel and try again');
 
     if (

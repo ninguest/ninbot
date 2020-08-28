@@ -14,6 +14,12 @@ module.exports = class LeaveCommand extends Command {
 
   run(message) {
     var voiceChannel = message.member.voice.channel;
+    
+    if (message.guild.triviaData.isTriviaRunning == true) {
+      message.say("I won't leave before you end the music quiz");
+      return;
+    }
+
     if (!voiceChannel) {
       message.reply('Join a channel and try again');
       return;

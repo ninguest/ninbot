@@ -9,7 +9,8 @@ module.exports = class StopMusicTriviaCommand extends Command {
         'skip-trivia',
         'end-trivia',
         'stop-trivia',
-        'endquiz'
+        'endquiz',
+        'stopquiz'
       ],
       memberName: 'stop-trivia',
       group: 'music',

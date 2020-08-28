@@ -14,6 +14,12 @@ module.exports = class PauseCommand extends Command {
 
   run(message) {
     var voiceChannel = message.member.voice.channel;
+
+    if (message.guild.triviaData.isTriviaRunning == true) {
+      message.say("You can't pause music quiz. You can do it within 50 seconds! がんばれ!");
+      return;
+    }
+
     if (!voiceChannel) return message.reply('Join a channel and try again');
 
     if (

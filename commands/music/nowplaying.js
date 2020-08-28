@@ -14,6 +14,12 @@ module.exports = class NowPlayingCommand extends Command {
   }
 
   run(message) {
+
+    if (message.guild.triviaData.isTriviaRunning == true) {
+      message.say('Command declined while running music quiz');
+      return;
+    }
+
     if (
       (!message.guild.musicData.isPlaying &&
         !message.guild.musicData.nowPlaying) ||
