@@ -3,6 +3,7 @@ const { MessageEmbed } = require('discord.js');
 const ytdl = require('ytdl-core');
 const fs = require('fs');
 const { prefix } = require('../../config.json');
+const utils = require('../../resources/utils.js');
 
 module.exports = class MusicTriviaCommand extends Command {
   constructor(client) {
@@ -34,8 +35,11 @@ module.exports = class MusicTriviaCommand extends Command {
     var voiceChannel = message.member.voice.channel;
     if (!voiceChannel)
       return message.say('Please join a voice channel and try again');
+
     if (message.guild.musicData.isPlaying === true)
       return message.channel.send('A quiz or a song is already running');
+    
+      
     message.guild.musicData.isPlaying = true;
     message.guild.triviaData.isTriviaRunning = true;
     // fetch link array from txt file
@@ -51,7 +55,7 @@ module.exports = class MusicTriviaCommand extends Command {
     ); // get x random urls
     // create and send info embed
     const infoEmbed = new MessageEmbed()
-      .setColor('#ff7373')
+      .setColor(utils.getrandomColor())
       .setTitle('Starting Music Quiz')
       .setDescription(
         `Get ready! There are ${numberOfSongs} songs, you have 50 seconds to guess the anime name, the singer/band or the name of the song. Good luck!
@@ -299,7 +303,7 @@ module.exports = class MusicTriviaCommand extends Command {
             ${classThis.capitalize_Words(queue[0].anime)}`;
 
             const embed = new MessageEmbed()
-              .setColor('#ff7373')
+              .setColor(utils.getrandomColor())
               .setTitle(`The song was:  ${song}`)
               .setDescription(
                 classThis.getLeaderBoard(Array.from(sortedScoreMap.entries()))
@@ -331,7 +335,7 @@ module.exports = class MusicTriviaCommand extends Command {
               })
             );
             const embed = new MessageEmbed()
-              .setColor('#ff7373')
+              .setColor(utils.getrandomColor())
               .setTitle(`Music Quiz Results:`)
               .setDescription(
                 classThis.getLeaderBoard(Array.from(sortedScoreMap.entries()))

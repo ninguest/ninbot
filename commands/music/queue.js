@@ -1,5 +1,6 @@
 const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
+const utils = require('../../resources/utils.js');
 
 module.exports = class QueueCommand extends Command {
   constructor(client) {
@@ -20,6 +21,7 @@ module.exports = class QueueCommand extends Command {
       return;
     }
 
+    
     if (message.guild.musicData.queue.length == 0)
       return message.say('⚠️ There are no songs in queue!');
     const titleArray = [];
@@ -30,7 +32,7 @@ module.exports = class QueueCommand extends Command {
     });
     /* eslint-enable */
     var queueEmbed = new MessageEmbed()
-      .setColor('#ff7373')
+      .setColor(utils.getrandomColor())
       .setTitle(`Music Queue - ${message.guild.musicData.queue.length} items`);
     for (let i = 0; i < titleArray.length; i++) {
       queueEmbed.addField(`${i + 1}:`, `${titleArray[i]}`);

@@ -1,7 +1,9 @@
 const { CommandoClient } = require('discord.js-commando');
 const { Structures } = require('discord.js');
+const { MessageEmbed } = require ('discord.js');
 const path = require('path');
 const { prefix, token, discord_owner_id } = require('./config.json');
+const utils = require('./resources/utils.js');
 
 Structures.extend('Guild', function(Guild) {
   class MusicGuild extends Guild {
@@ -50,7 +52,7 @@ client.registry
 
 
 client.once('ready', () => {
-  console.log('Ready!');
+  console.log('Hello There! I am Ready to serve!');
   client.user.setActivity(`${prefix} as Bot Prefix`, {
     type: 'STREAMING',
     url: 'https://www.twitch.tv/meowychan'
@@ -83,6 +85,33 @@ client.on('guildMemberAdd', member => {
   if (!channel) return;
   channel.send(`Welcome ${member}!`);
 });
+
+
+function getRandomColor() {
+  var length = 6;
+  var chars = '0123456789ABCDEF';
+  var hex = '0x';
+  while(length--) hex += chars[(Math.random() * 16) | 0];
+  return hex;
+}
+
+//more hidden bot commands
+client.on('message', message => {
+
+  //check user avatar
+  if (message.content.startsWith("cav")|| message.content.startsWith("checkavatar")){
+    const user = message.mentions.users.first() || message.author;
+    const avatar2Embed = new MessageEmbed()
+      .setColor(utils.getrandomColor()) 
+      .setFooter(user.username + " 's Avatar")
+      .setImage(user.displayAvatarURL());
+
+    message.channel.send(avatar2Embed);
+  }
+
+});
+
+
 
 
 client.login(process.env.TOKEN);

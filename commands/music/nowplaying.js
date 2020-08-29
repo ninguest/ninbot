@@ -1,5 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const { Command } = require('discord.js-commando');
+const utils = require('../../resources/utils.js');
 
 module.exports = class NowPlayingCommand extends Command {
   constructor(client) {
@@ -36,9 +37,10 @@ module.exports = class NowPlayingCommand extends Command {
       description = NowPlayingCommand.playbackBar(message, video);
     }
 
+
     const videoEmbed = new MessageEmbed()
       .setThumbnail(video.thumbnail)
-      .setColor('#e9f931')
+      .setColor(utils.getrandomColor())
       .setTitle(video.title)
       .setDescription(description);
     message.channel.send(videoEmbed);

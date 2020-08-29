@@ -4,6 +4,7 @@ const Youtube = require('simple-youtube-api');
 const ytdl = require('ytdl-core');
 const { youtubeAPI } = require('../../config.json');
 const youtube = new Youtube(youtubeAPI);
+const utils = require('../../resources/utils.js');
 
 module.exports = class PlayCommand extends Command {
   constructor(client) {
@@ -43,6 +44,7 @@ module.exports = class PlayCommand extends Command {
       message.say('Please try after the trivia has ended');
       return;
     }
+    
     
     if (
       // if the user entered a youtube playlist url
@@ -168,7 +170,7 @@ module.exports = class PlayCommand extends Command {
     }
     vidNameArr.push('exit');
     const embed = new MessageEmbed()
-      .setColor('#e9f931')
+      .setColor(utils.getrandomColor())
       .setTitle('Choose a song by commenting a number between 1 and 5')
       .addField('Song 1', vidNameArr[0])
       .addField('Song 2', vidNameArr[1])
@@ -270,12 +272,12 @@ module.exports = class PlayCommand extends Command {
               highWaterMark: 1 << 25
             })
           )
-          .on('start', function() {
+          .on('start', function() {           
             message.guild.musicData.songDispatcher = dispatcher;
             dispatcher.setVolume(message.guild.musicData.volume);
             const videoEmbed = new MessageEmbed()
               .setThumbnail(queue[0].thumbnail)
-              .setColor('#e9f931')
+              .setColor(utils.getrandomColor())
               .addField('Now Playing:', queue[0].title)
               .addField('Duration:', queue[0].duration)
               .setFooter(
