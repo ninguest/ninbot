@@ -323,7 +323,7 @@ module.exports = class MusicTriviaCommand extends Command {
               message.guild.musicData.isPlaying = false;
               message.guild.triviaData.isTriviaRunning = false;
               message.guild.musicData.songDispatcher = null;
-              message.guild.me.voice.channel.leave();
+              //message.guild.me.voice.channel.leave();
               return;
             }
             const sortedScoreMap = new Map(
@@ -345,7 +345,7 @@ module.exports = class MusicTriviaCommand extends Command {
             message.guild.triviaData.isTriviaRunning = false;
             message.guild.triviaData.triviaScore.clear();
             message.guild.musicData.songDispatcher = null;
-            message.guild.me.voice.channel.leave();
+            //message.guild.me.voice.channel.leave();
             return;
           }
         });

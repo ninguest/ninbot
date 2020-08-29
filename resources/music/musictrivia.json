@@ -306,125 +306,125 @@
       "url": "https://www.youtube.com/watch?v=MjUwdJZ5OaU",
       "singer":"TRUE",
       "title":"Sincerely",
-"anime": ""
+      "anime": "Violet Evergarden"
     },
  {
       "url": "https://www.youtube.com/watch?v=Rm8UjBAS3cs",
       "singer":"Fear, and Loathing in Las Vegas",
       "title":"Let Me Hear",
-	"anime": "Parasyte"
+	    "anime": "Parasyte"
     },
  {
       "url": "https://www.youtube.com/watch?v=JUewJm2ssBw",
       "singer":"YUI",
       "title":"Again",
-	"anime": "Fullmetal Alchemist Brotherhood"
+	    "anime": "Fullmetal Alchemist Brotherhood"
     },
  {
       "url": "https://www.youtube.com/watch?v=4stwmvvO_F4",
       "singer":"Masatoshi Ono",
       "title":"Departure!",
-	"anime": "Hunter × Hunter"
+	    "anime": "Hunter × Hunter"
     },
  {
       "url": "https://www.youtube.com/watch?v=Eq6EYcpWB_c",
       "singer":"Nujabes",
       "title":"Battlecry",
-	"anime": "Samurai Champloo"
+	    "anime": "Samurai Champloo"
     },
  {
       "url": "https://www.youtube.com/watch?v=w6LFkMniuTk",
       "singer":"Isao Sasaki",
       "title":"Uchuu Senkan Yamato",
-	"anime": "Space Battleship Yamato 2199"
+	    "anime": "Space Battleship Yamato 2199"
     },
  {
       "url": "https://www.youtube.com/watch?v=rrYer2AfIwA",
       "singer":"Sayuri",
       "title":"Parallel Line / Heikousen",
-	"anime": "Kuzu no Honkai"
+	    "anime": "Kuzu no Honkai"
     }, {
       "url": "https://www.youtube.com/watch?v=sj3fy3J5EHI",
       "singer":"Kalafina",
       "title":"Magia",
-	"anime": "Madoka Magica The Movie"
+	    "anime": "Madoka Magica The Movie"
     },
  {
       "url": "https://www.youtube.com/watch?v=O5uYQF4R-jo",
       "singer":"Kalafina",
       "title":"To the Beginning",
-	"anime": "Fate/Zero"
+	    "anime": "Fate/Zero"
     }, {
       "url": "https://www.youtube.com/watch?v=MN_WgwEmRaw",
       "singer":"Natsumi Kiyoura",
       "title":"Tabi no Tochuu",
-	"anime": "Spice and Wolf"
+	    "anime": "Spice and Wolf"
     },
  {
       "url": "https://www.youtube.com/watch?v=vJ3jNTH2QL0",
       "singer":"Muse",
       "title":"Snow Halation",
-	"anime": "Love Live! School Idol Project"
+	    "anime": "Love Live! School Idol Project"
     }, 
 {
       "url": "https://www.youtube.com/watch?v=VlQSWmzcG58",
       "singer":"Lia",
       "title":"Bravely You",
-	"anime": "Charlotte"
+	    "anime": "Charlotte"
     },
  {
       "url": "https://www.youtube.com/watch?v=Turf7WDB3iY",
       "singer":"Lia",
       "title":"My Soul, Your Beats!",
-	"anime": "Angel Beats!"
+	    "anime": "Angel Beats!"
     },
 {
       "url": "https://www.youtube.com/watch?v=ql0NtjXIv_s",
       "singer":"Yousei Teikoku",
       "title":"Kuusou Mesorogiwi",
-	"anime": "Future Diary"
+	    "anime": "Future Diary"
     },
  {
       "url": "https://www.youtube.com/watch?v=Fh6bTCZGDuo&t=2s",
       "singer":"Ultra Tower",
       "title":"Kibou No Uta",
-	"anime": "Food Wars!"
+	    "anime": "Food Wars!"
     },
 {
       "url": "https://www.youtube.com/watch?v=kuNixp-wvWM",
       "singer":"Kasane Teto",
       "title":"FUKKIRETA",
-	"anime": "FUKKIRETA"
+	    "anime": "FUKKIRETA"
     },
  {
       "url": "https://www.youtube.com/watch?v=qaLeO-2Fytg",
       "singer":"GARNiDELiA",
       "title": "ambiguous",
-	"anime": "Kill la Kill"
+	    "anime": "Kill la Kill"
     },
 {
       "url": "https://www.youtube.com/watch?v=ntuZWHd-l_Y",
       "singer":"Mika Kobayashi",
       "title": "Before my body is dry",
-	"anime": ""
+	    "anime": "Kill la Kill"
     },
  {
       "url": "https://www.youtube.com/watch?v=eW6sEkTGbUc",
       "singer":"MAN WITH A MISSION",
       "title":"Database",
-	"anime": "Kill la Kill"
+	    "anime": "Kill la Kill"
     },
 {
       "url": "https://www.youtube.com/watch?v=9vx69Pe7Ncs",
       "singer":"Chemistry",
       "title":"Period",
-	"anime": "Fullmetal Alchemist Brotherhood"
+	    "anime": "Fullmetal Alchemist Brotherhood"
     },
  {
       "url": "https://www.youtube.com/watch?v=diuexInkshA&list=RDdiuexInkshA&start_radio=1",
       "singer":"Devilman No Uta",
       "title":"kensuke ushio",
-	"anime": "Devilman Crybaby"
+	    "anime": "Devilman Crybaby"
     },
 {
       "url": "https://www.youtube.com/watch?v=ORDXWrL5EuQ",
@@ -460,13 +460,27 @@
       "url": "https://www.youtube.com/watch?v=QHFif7LRylw",
       "singer":"WEAVER",
       "title":"Kuchizuke Diamond",
-	"anime": "Yamada and the Seven Witches"
+	    "anime": "Yamada and the Seven Witches"
     },
-{
+    {
       "url": "https://www.youtube.com/watch?v=Upvuj6GhAa4",
       "singer":"amazarashi",
       "title":"Kisetsu Wa Tsugitsugi Shindeiku",
-	"anime": "Tokyo Ghoul"
+	  "anime": "Tokyo Ghoul"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=iNVOLwt_I94",
+      "singer":"Three Lights Down Kings",
+      "title":"Never Say Never",
+	    "anime": "Durarara x2 Shou ED"
+
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=Ll0gny4ec_E",
+      "singer":"Day x Day",
+      "title":"Blue Encount ",
+	    "anime": "Gintama 2015"
+
     }
 
   ]
