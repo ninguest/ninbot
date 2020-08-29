@@ -6,6 +6,7 @@ module.exports = class LoopCommand extends Command {
       name: 'loop',
       group: 'music',
       memberName: 'loop',
+      aliases: ['repeat'],
       guildOnly: true,
       description: 'Loop the current playing song',
       args: [
