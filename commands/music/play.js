@@ -43,10 +43,7 @@ module.exports = class PlayCommand extends Command {
       message.say('Please try after the trivia has ended');
       return;
     }
-
-    message.channel.startTyping();
     
-
     if (
       // if the user entered a youtube playlist url
       query.match(

@@ -18,7 +18,18 @@ module.exports = class SayCommand extends Command {
     });
   }
 
+  
+
   run(message, { text }) {
-    return message.say(text);
+  
+    function empty() {
+      message.say(text);
+    }
+    message.channel.startTyping();
+    
+    setTimeout(empty, 500);
+    
+    return message.channel.stopTyping();
+    
   }
 };

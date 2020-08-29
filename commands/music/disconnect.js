@@ -25,6 +25,10 @@ module.exports = class DisconnectCommand extends Command {
       return;
     }
     
+    if (!voiceChannel) {
+      message.reply('⚠️ Join a channel and try again');
+      return;
+    }
     
     voiceChannel.leave()
     message.say('👋 Bye!');
