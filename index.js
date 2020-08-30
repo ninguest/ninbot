@@ -1,9 +1,15 @@
 const { CommandoClient } = require('discord.js-commando');
 const { Structures } = require('discord.js');
-const { MessageEmbed } = require ('discord.js');
+const { MessageEmbed } = require('discord.js');
+const songdata = require('./resources/mongodb/songdata.js').SongDataSource;
 const path = require('path');
-const { prefix, token, discord_owner_id } = require('./config.json');
+//const { prefix, token, discord_owner_id } = require('./config.json');
 const utils = require('./resources/utils.js');
+const MongoDB = require('./resources/mongodb/data.js');
+const fs = require('fs');
+const dotenv = require('dotenv');
+dotenv.config();
+
 
 Structures.extend('Guild', function(Guild) {
   class MusicGuild extends Guild {
@@ -28,8 +34,8 @@ Structures.extend('Guild', function(Guild) {
 });
 
 const client = new CommandoClient({
-  commandPrefix: prefix,
-  owner: discord_owner_id // value comes from config.json
+  commandPrefix: process.env.PREFIX,
+  owner: process.env.OID // value comes from config.json
 });
 
 client.registry
@@ -53,7 +59,8 @@ client.registry
 
 client.once('ready', () => {
   console.log('Hello There! I am Ready to serve!');
-  client.user.setActivity(`${prefix} as Bot Prefix`, {
+  MongoDB.default.start();
+  client.user.setActivity(`${process.env.PREFIX} as Bot Prefix`, {
     type: 'STREAMING',
     url: 'https://www.twitch.tv/meowychan'
   });
