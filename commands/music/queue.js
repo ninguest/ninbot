@@ -27,7 +27,7 @@ module.exports = class QueueCommand extends Command {
     const titleArray = [];
     /* eslint-disable */
     // display only first 10 items in queue
-    message.guild.musicData.queue.slice(0, 10).forEach(obj => {
+    message.guild.musicData.queue.slice(0, 15).forEach(obj => {
       titleArray.push(obj.title);
     });
     /* eslint-enable */

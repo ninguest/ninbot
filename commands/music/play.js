@@ -163,10 +163,12 @@ module.exports = class PlayCommand extends Command {
     }
 
     const vidNameArr = [];
+    
 
     
     for (let i = 0; i < videos.length; i++) {
       vidNameArr.push(`${i + 1}: ${videos[i].title}`);
+      
     }
     vidNameArr.push('exit');
     const embed = new MessageEmbed()
@@ -276,6 +278,8 @@ module.exports = class PlayCommand extends Command {
             message.guild.musicData.songDispatcher = dispatcher;
             dispatcher.setVolume(message.guild.musicData.volume);
             const videoEmbed = new MessageEmbed()
+              .setTitle("💠NIN's Music On !💠")
+              .setURL(queue[0].url)
               .setThumbnail(queue[0].thumbnail)
               .setColor(utils.getrandomColor())
               .addField('Now Playing:', queue[0].title)
@@ -284,7 +288,7 @@ module.exports = class PlayCommand extends Command {
                 `Requested by ${queue[0].memberDisplayName}`,
                 queue[0].memberAvatar
               );
-            if (queue[1]) videoEmbed.addField('Next Song:', queue[1].title);
+            if (queue[1]) videoEmbed.addField('Next Song:', queue[1].title + ` [${queue[1].duration}]`);
             message.say(videoEmbed);
             message.guild.musicData.nowPlaying = queue[0];
             queue.shift();
