@@ -278,17 +278,17 @@ module.exports = class PlayCommand extends Command {
             message.guild.musicData.songDispatcher = dispatcher;
             dispatcher.setVolume(message.guild.musicData.volume);
             const videoEmbed = new MessageEmbed()
-              .setTitle("💠NIN's Music On !💠")
-              .setURL(queue[0].url)
+              .setAuthor("Now playing:", 'https://images-ext-2.discordapp.net/external/-6HBsi17MzRx9oAPtQkvRBUFoBLubMvS2F6uC8cEyjU/https/cdn.discordapp.com/avatars/747360029698424872/e2e04a707539bb9d974dc96ee9308e69.webp')
+              .setDescription(`[${queue[0].title}](${queue[0].url})`)
               .setThumbnail(queue[0].thumbnail)
-              .setColor(utils.getrandomColor())
-              .addField('Now Playing:', queue[0].title)
+              .setColor("RANDOM")
               .addField('Duration:', queue[0].duration)
-              .setFooter(
-                `Requested by ${queue[0].memberDisplayName}`,
-                queue[0].memberAvatar
-              );
-            if (queue[1]) videoEmbed.addField('Next Song:', queue[1].title + ` [${queue[1].duration}]`);
+              .addField('Requested By:', queue[0].memberDisplayName)
+              .setTimestamp()
+              
+              
+            // if (queue[1]) videoEmbed.addField('Next Song:', queue[1].title + `[${queue[1].duration}]`);
+            // if (queue[1]) videoEmbed.setFooter(`Requested by: ${queue[1].memberDisplayName}`, queue[1].memberAvatar)
             message.say(videoEmbed);
             message.guild.musicData.nowPlaying = queue[0];
             queue.shift();
@@ -310,12 +310,13 @@ module.exports = class PlayCommand extends Command {
           })
           .on('error', function(e) {
             message.say('Cannot play song');
-            console.error(e);
-            message.guild.musicData.queue.length = 0;
+            
+            message.guild.musicData.queue.length = null;
             message.guild.musicData.isPlaying = false;
             message.guild.musicData.nowPlaying = null;
             message.guild.musicData.songDispatcher = null;
             message.guild.me.voice.channel.leave();
+            console.error(e);
             return;
           });
       })

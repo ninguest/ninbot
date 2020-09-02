@@ -9,9 +9,11 @@
   },
   "main": "index.js",
   "scripts": {
+    "preinstall": "npm install pm2 -g",
     "start": "node .",
     "pretest": "eslint --ignore-path .gitignore .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ."
   },
   "author": "Joker",
   "license": "ISC",
@@ -28,6 +30,7 @@
     "mongoose": "^5.10.0",
     "node-opus": "^0.3.3",
     "opusscript": "0.0.7",
+    "pm2": "^4.4.1",
     "random-puppy": "^1.1.0",
     "request": "^2.88.2",
     "request-promise-native": "^1.0.9",
