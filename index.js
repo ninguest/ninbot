@@ -43,12 +43,13 @@ const client = new CommandoClient({
 client.registry
   .registerDefaultTypes()
   .registerGroups([
-    ['music', '🎶Music Command Group'],
-    ['gifs', '✨Gif Command Group'],
-    ['other', '💬random types of commands group'],
-    ['guild', '🔥Guild related commands'],
-    ['nsfw', '🔞NSFW related commands'],
-    
+    ['music', '🎶 Music'],
+    ['gifs', '✨ Gif'],
+    ['game', '🎮 Game'],
+    ['nsfw', '🔞 NSFW'],
+    ['guild', '🔥 Guild'],
+    ['other', '💬 Random'],
+    ['admin', '☘ Bot Admin']
   ])
   .registerDefaultGroups()
   .registerDefaultCommands({

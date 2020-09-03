@@ -13,7 +13,7 @@ module.exports = class StopMusicTriviaCommand extends Command {
         'stopquiz'
       ],
       memberName: 'stop-trivia',
-      group: 'music',
+      group: 'game',
       description: 'End the music trivia',
       guildOnly: true,
       clientPermissions: ['SPEAK', 'CONNECT']

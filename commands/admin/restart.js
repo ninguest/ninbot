@@ -8,7 +8,7 @@ module.exports = class SayCommand extends Command {
     super(client, {
       name: 'restart',
       memberName: 'restart',
-      group: 'other',
+      group: 'admin',
       description: 'Restart NIN Bot (Only Admin)',
     //   args: [
     //     {

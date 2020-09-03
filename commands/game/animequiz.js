@@ -12,7 +12,7 @@ module.exports = class MusicTriviaCommand extends Command {
       name: 'animequiz',
       memberName: 'animequiz',
       aliases: ['animemusicquiz','musicquiz', 'startquiz', 'mzquiz'],
-      group: 'music',
+      group: 'game',
       description: 'Engage in anime music quiz with your friends!',
       guildOnly: true,
       clientPermissions: ['SPEAK', 'CONNECT'],

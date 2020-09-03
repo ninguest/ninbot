@@ -8,8 +8,9 @@ module.exports = class SayCommand extends Command {
       name: 'stat',
       aliases: ['status', 'bot-status'],
       memberName: 'stat',
-      group: 'other',
-      description: 'Check Bot Status',
+      guildOnly: true,
+      group: 'admin',
+      description: 'Return with NIN Bot Full Status',
     //   args: [
     //     {
     //       key: 'text',

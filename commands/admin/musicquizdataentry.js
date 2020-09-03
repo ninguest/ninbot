@@ -9,8 +9,8 @@ module.exports = class SayCommand extends Command {
       name: 'musicquizdataentry',
       aliases: ['mentry'],
       memberName: 'musicquizdataentry',
-      group: 'other',
-      description: 'Make the bot say anything',
+      group: 'admin',
+      description: 'Anime Music Quiz Data Entry',
       args: [
         {
           key: 'url',
