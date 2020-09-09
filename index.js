@@ -7,6 +7,8 @@ const path = require('path');
 const utils = require('./resources/utils.js');
 const MongoDB = require('./resources/mongodb/data.js');
 const fs = require('fs');
+const ytvalid = require('youtube-validate');
+const songinput = require('./resources/mongodb/songdata.js').SongDataSource;
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -49,16 +51,18 @@ client.registry
     ['nsfw', '🔞 NSFW'],
     ['guild', '🔥 Guild'],
     ['other', '💬 Random'],
-    ['admin', '☘ Bot Admin']
+    ['admin', '☘ Bot Admin'],
+    ['utility', 'Utility']
   ])
   .registerDefaultGroups()
   .registerDefaultCommands({
+    help: true,
     eval: false,
     prefix: false,
     commandState: false
   })
   .registerCommandsIn(path.join(__dirname, 'commands'));
-
+  
 
 client.once('ready', () => {
   console.log('Hello There! I am Ready to serve!');
@@ -96,48 +100,32 @@ client.on('guildMemberAdd', member => {
   channel.send(`Welcome ${member}!`);
 });
 
-
-function getRandomColor() {
-  var length = 6;
-  var chars = '0123456789ABCDEF';
-  var hex = '0x';
-  while(length--) hex += chars[(Math.random() * 16) | 0];
-  return hex;
-}
-
 //more hidden bot commands
 client.on('message', message => {
 
-  //check user avatar
-  if (message.content.match("cup")|| message.content.startsWith("checkprofile")){
+  //Admin Restart (process.exit())
+  if (message.content == "ninrestart"){
     
-    const user = message.mentions.users.first() || message.author;
-    const UserID = user.id;
-    const UserNickname = message.guild.member(UserID).nickname;
-      
-    const UserEmbed = new MessageEmbed()
-      .setColor(utils.getrandomColor())
-      .setTitle(UserNickname)
-      .setURL(`https://discordapp.com/channels/@me/${UserID}/`)
-      .setAuthor("User Profile", user.displayAvatarURL())
-      //.setDescription(`🏷️UserTag: ${user.tag}`)
-      .setThumbnail('https://images-ext-2.discordapp.net/external/-6HBsi17MzRx9oAPtQkvRBUFoBLubMvS2F6uC8cEyjU/https/cdn.discordapp.com/avatars/747360029698424872/e2e04a707539bb9d974dc96ee9308e69.webp')
-      .addField(' Username', user.username, true)
-      .addField(' UserTag', user.tag, true)
-      .addField(' Bot Identifier', user.bot, true)
-      .addField(' Current Presence', user.presence.status, true)
-      .addField(' UserID', UserID)
-      .addField('⏲️ User Created Date', user.createdAt)
-      .setImage(user.displayAvatarURL())
-      .setTimestamp();
-      //.setFooter('Some footer text here', 'https://i.imgur.com/wSTFkRM.png');
+    const useridcheck = 432425500208791554;
     
-    message.channel.send(UserEmbed);
+    function restartbot() {
+        process.exit();
+      }
+    
+    if (message.author.id == useridcheck){
+        message.say("⚠️Bot Client will be restart very soon");
+        console.log(`${Date.now()} : Bot Restart from a Restart Request`);
+        setTimeout(restartbot, 500);
+       return;
+     }
+    else{
+        message.say("You have no PERMISSION to restart NIN Bot");
+        console.log(`${message.author.username} is trying toRestart NIN Bot`);
+
+    }
   }
 
 });
-
-
 
 
 client.login(process.env.TOKEN);

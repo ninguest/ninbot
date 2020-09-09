@@ -8,8 +8,10 @@ exports.getrandomColor = () =>{
     console.log('math random' + Math.random());
     return hex;*/
 
+
     //return '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
 
+    
     var colour = "#"+((1<<24)*Math.random()|0).toString(16);
     //console.log("Random Colour produced: "+ colour);
     return colour;
