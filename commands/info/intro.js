@@ -8,12 +8,14 @@ module.exports = class WhoMadeMeCommand extends Command {
       name: 'intro',
       aliases: ['bot-maker', 'bot-creator', 'whomademe'],
       memberName: 'intro',
-      group: 'admin',
+      group: 'info',
       description: "NIN Bot's Introduction"
     });
   }
 
   run(message) {
+    
+    var inv = 'https://discord.com/oauth2/authorize?client_id=747360029698424872&scope=bot&permissions=2146958847';
     const IntroEmbed = new MessageEmbed()
     .setColor('#D2B4DE')
     .setTitle('NIN Bot')
@@ -29,6 +31,7 @@ module.exports = class WhoMadeMeCommand extends Command {
     .addField('Creator', '*NineGuest#2941*', true)
     //.addField(' UserID', UserID)
     .addField('Bot Supporting Server', 'https://discord.gg/DyrdbJW')
+    .addField(' Invite Link: ', inv, true)
     //.setImage(user.displayAvatarURL())
     .setTimestamp();
     //.setFooter('Some footer text here', 'https://i.imgur.com/wSTFkRM.png');

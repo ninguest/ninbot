@@ -33,7 +33,7 @@ module.exports = class ServerInfoCommand extends Command {
     super(client, {
       name: 'serverinfo',
       aliases: ['guild', 'server'],
-	  group: 'admin',
+	  group: 'info',
 	  guildOnly: true,
       memberName: 'serverinfo',
       description:

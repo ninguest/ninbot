@@ -45,14 +45,14 @@ const client = new CommandoClient({
 client.registry
   .registerDefaultTypes()
   .registerGroups([
-    ['music', '🎶 Music'],
-    ['gifs', '✨ Gif'],
-    ['game', '🎮 Game'],
-    ['nsfw', '🔞 NSFW'],
-    ['guild', '🔥 Guild'],
-    ['other', '💬 Random'],
+    ['music', '🎶 Play Music Anytime, Anywhere'],
+    ['nsfw', '🔞 Alert! NSFW Ahead!'],
+    ['game', '🎮 Small Games'],
+    ['guild', '🔥 Guild Commands'],
+    ['gifs', '✨ GIF Area'],
+    ['info', 'ℹ️ Information Centre'],
     ['admin', '☘ Bot Admin'],
-    ['utility', 'Utility']
+    ['other', '💬 Random Commands']
   ])
   .registerDefaultGroups()
   .registerDefaultCommands({
@@ -108,21 +108,28 @@ client.on('message', message => {
     
     const useridcheck = 432425500208791554;
     
+    var d = new Date();
+
     function restartbot() {
         process.exit();
       }
     
     if (message.author.id == useridcheck){
         message.say("⚠️Bot Client will be restart very soon");
-        console.log(`${Date.now()} : Bot Restart from a Restart Request`);
+        console.log(`${d.toLocaleString()} : Bot Restart from a Restart Request`);
+
         setTimeout(restartbot, 500);
        return;
      }
     else{
-        message.say("You have no PERMISSION to restart NIN Bot");
-        console.log(`${message.author.username} is trying toRestart NIN Bot`);
+        message.reply("You have no PERMISSION to restart NIN Bot");
+        console.log(`${d.toLocaleString()} : ${message.author.username} is trying toRestart NIN Bot`);
 
     }
+  }
+
+  if(message.content == 'ninbot' || message.content == '宁'){
+    message.channel.send(`**Hi,** __${message.author}__ **. NIN Bot is currently Online and ready to serve.**\n\`\`\` \nNINBOT Version: Beta\nLast Update: Oct 2020\n \`\`\` `);
   }
 
 });

@@ -4,12 +4,12 @@ const { Command } = require('discord.js-commando');
 const moment = require('moment');
 const discord = require('discord.js')
 
-module.exports = class CheckProfileCommand extends Command {
+module.exports = class InviteCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'invite',
       aliases: ['inv'],
-	  group: 'utility',
+	  group: 'info',
 	  guildOnly: false,
       memberName: 'invite',
       description:
@@ -23,7 +23,7 @@ module.exports = class CheckProfileCommand extends Command {
     });
   }
 
-  // If you want to restrict nsfw posts, remove the commented out code below
+  
 
   async run(message) {
 

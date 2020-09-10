@@ -9,7 +9,7 @@ module.exports = class CheckProfileCommand extends Command {
     super(client, {
       name: 'checkprofile',
       aliases: ['cup', 'profileinfo'],
-	  group: 'admin',
+	  group: 'info',
 	  guildOnly: true,
       memberName: 'checkprofile',
       description:
