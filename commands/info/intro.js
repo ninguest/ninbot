@@ -1,6 +1,7 @@
 const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
 const discord = require('discord.js');
+const utils = require('../../resources/utils.js');
 
 module.exports = class WhoMadeMeCommand extends Command {
   constructor(client) {
@@ -33,8 +34,8 @@ module.exports = class WhoMadeMeCommand extends Command {
     .addField('Bot Supporting Server', 'https://discord.gg/DyrdbJW')
     .addField(' Invite Link: ', inv, true)
     //.setImage(user.displayAvatarURL())
-    .setTimestamp();
-    //.setFooter('Some footer text here', 'https://i.imgur.com/wSTFkRM.png');
+    //.setTimestamp();
+    .setFooter(`Message CreatedAt: ${utils.GetTimeZoneDate()}`);
   
     message.channel.send(IntroEmbed);
     // message.say(

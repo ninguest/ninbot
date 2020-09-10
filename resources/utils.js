@@ -23,3 +23,11 @@ exports.YTUIDGet = (url) =>{
         return url.match(re)[7];
 }
 
+exports.GetTimeZoneDate = () =>{
+    const date = new Date();
+    const dateTZ = date.toLocaleString("zh-SG", {
+            timeZone: "Asia/Singapore"
+    });
+
+    return dateTZ;
+}

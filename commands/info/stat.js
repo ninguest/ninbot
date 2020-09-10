@@ -27,7 +27,10 @@ module.exports = class SayCommand extends Command {
   
 
     var cmemberCount = message.guild.members.cache.filter(member => !member.user.bot).size;
+    
     var botCount = message.guild.memberCount - cmemberCount;
+    
+    const thisdate = this.client.readyAt.toLocaleString("zh-SG", {timeZone: "Asia/Singapore"});
 
     const StatEmbed = new MessageEmbed()
       .setColor('#FF00FF')
@@ -39,7 +42,7 @@ module.exports = class SayCommand extends Command {
       .addField(' Total Bots in Current Server', `***${botCount}***`)
       .addField(' Bot WebSocket Ping', `***${this.client.ws.ping} ms***`)
       .addField(' Interaction Ping',`***${Date.now() - message.createdTimestamp} ms***` )
-      .addField(' Bot Last Restart Time', this.client.readyAt)
+      .addField(' Bot Last Restart Time', `\`\`\`${thisdate}\`\`\``)
       
       .setTimestamp();
 

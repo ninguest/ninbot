@@ -108,28 +108,27 @@ client.on('message', message => {
     
     const useridcheck = 432425500208791554;
     
-    var d = new Date();
-
     function restartbot() {
         process.exit();
       }
     
     if (message.author.id == useridcheck){
-        message.say(`⚠️Bot Client will be restart very soon\n\`\`\`${d.toLocaleString()}: Restart Request Success\`\`\``);
-        console.log(`${d.toLocaleString()} : Bot Restart from a Restart Request`);
+        message.say(`⚠️Bot Client will be restart\n\`\`\`${utils.GetTimeZoneDate()}: Restart Request Success\`\`\``);
+        console.log(`${utils.GetTimeZoneDate()} : Bot Restart from a Restart Request`);
 
         setTimeout(restartbot, 500);
        return;
      }
     else{
         message.reply("You have no PERMISSION to restart NIN Bot");
-        console.log(`${d.toLocaleString()} : ${message.author.username} is trying toRestart NIN Bot`);
+        console.log(`${utils.GetTimeZoneDate()} : ${message.author.username} is trying toRestart NIN Bot`);
 
     }
   }
 
+  //Check NIN Bot's version
   if(message.content == 'ninbot' || message.content == '宁'){
-    message.channel.send(`**Hi,** __${message.author}__ **. NIN Bot is currently Online and ready to serve.**\n\`\`\` \nNINBOT Version: Beta\nLast Update: Oct 2020\n \`\`\` `);
+    message.channel.send(`**Hi,** __${message.author}__ **. NIN Bot is currently Online and ready to serve.**\n\`\`\` \nNINBOT Version: Beta\nLast Update: September 2020\n \`\`\` `);
   }
 
 });

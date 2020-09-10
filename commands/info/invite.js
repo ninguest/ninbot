@@ -2,7 +2,8 @@ const { MessageEmbed } = require('discord.js');
 const fetch = require('node-fetch');
 const { Command } = require('discord.js-commando');
 const moment = require('moment');
-const discord = require('discord.js')
+const discord = require('discord.js');
+const utils = require('../../resources/utils.js');
 
 module.exports = class InviteCommand extends Command {
   constructor(client) {
@@ -13,7 +14,7 @@ module.exports = class InviteCommand extends Command {
 	  guildOnly: false,
       memberName: 'invite',
       description:
-        'Get Server Info',
+        'Get Invite link from NIN Bot',
       throttling: {
         usages: 2,
         duration: 10
@@ -27,7 +28,8 @@ module.exports = class InviteCommand extends Command {
 
   async run(message) {
 
-	var inv = 'https://discord.com/oauth2/authorize?client_id=747360029698424872&scope=bot&permissions=2146958847';
+
+	  var inv = 'https://discord.com/oauth2/authorize?client_id=747360029698424872&scope=bot&permissions=2146958847';
     var sinv = 'https://discord.gg/DyrdbJW';
 
     const UserEmbed = new MessageEmbed()
@@ -44,8 +46,8 @@ module.exports = class InviteCommand extends Command {
     // .addField(' UserID', UserID)
     // .addField('⏲️ User Created Date', user.createdAt)
     // .setImage(user.displayAvatarURL())
-    .setTimestamp();
-    //.setFooter('Some footer text here', 'https://i.imgur.com/wSTFkRM.png');
+    //.setTimestamp();
+    .setFooter(`Message CreatedAt: ${utils.GetTimeZoneDate()}`);
   
   message.channel.send(UserEmbed);
     

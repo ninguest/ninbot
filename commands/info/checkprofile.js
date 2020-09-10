@@ -2,7 +2,8 @@ const { MessageEmbed } = require('discord.js');
 const fetch = require('node-fetch');
 const { Command } = require('discord.js-commando');
 const moment = require('moment');
-const discord = require('discord.js')
+const discord = require('discord.js');
+const utils = require('../../resources/utils.js');
 
 module.exports = class CheckProfileCommand extends Command {
   constructor(client) {
@@ -13,7 +14,7 @@ module.exports = class CheckProfileCommand extends Command {
 	  guildOnly: true,
       memberName: 'checkprofile',
       description:
-        'Get Server Info',
+        'Get mentioned client profile or check your own profile',
       throttling: {
         usages: 2,
         duration: 10
