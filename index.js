@@ -115,7 +115,7 @@ client.on('message', message => {
       }
     
     if (message.author.id == useridcheck){
-        message.say("⚠️Bot Client will be restart very soon");
+        message.say(`⚠️Bot Client will be restart very soon\n\`\`\`${d.toLocaleString()}: Restart Request Success\`\`\``);
         console.log(`${d.toLocaleString()} : Bot Restart from a Restart Request`);
 
         setTimeout(restartbot, 500);
