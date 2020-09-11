@@ -130,7 +130,6 @@ client.on('message', message => {
   if(message.content == 'ninbot' || message.content == '宁'){
     message.channel.send(`**Hi,** __${message.author}__ **. NIN Bot is currently Online and ready to serve.**\n\`\`\` \nNINBOT Version: Beta\nLast Update: September 2020\n \`\`\` `);
   }
-
 });
 
 

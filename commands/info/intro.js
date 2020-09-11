@@ -16,7 +16,7 @@ module.exports = class WhoMadeMeCommand extends Command {
 
   run(message) {
     
-    var inv = 'https://discord.com/oauth2/authorize?client_id=747360029698424872&scope=bot&permissions=2146958847';
+    var inv = `https://discord.com/oauth2/authorize?client_id=${this.client.user.id}&scope=bot&permissions=2146958847`;
     const IntroEmbed = new MessageEmbed()
     .setColor('#D2B4DE')
     .setTitle('NIN Bot')
