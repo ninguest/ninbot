@@ -36,7 +36,7 @@ module.exports = class SayCommand extends Command {
       .setColor('#FF00FF')
       .setTitle("✨__NIN Bot Status__")
       //.setDescription(`🏷️UserTag: ${user.tag}`)
-      .setThumbnail('https://images-ext-2.discordapp.net/external/-6HBsi17MzRx9oAPtQkvRBUFoBLubMvS2F6uC8cEyjU/https/cdn.discordapp.com/avatars/747360029698424872/e2e04a707539bb9d974dc96ee9308e69.webp')
+      .setThumbnail(this.client.user.displayAvatarURL())
       .addField(' Total Serving Guild', `***${this.client.guilds.cache.size}***`)
       .addField(' Total Users in Current Server', `***${cmemberCount}***`)
       .addField(' Total Bots in Current Server', `***${botCount}***`)

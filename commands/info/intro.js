@@ -24,7 +24,7 @@ module.exports = class WhoMadeMeCommand extends Command {
     //.setAuthor("User Profile", user.displayAvatarURL())
     //.setDescription(`🏷️UserTag: ${user.tag}`)
     .setDescription(`Hi, I'm NIN Bot. I am a Multi-Functions Discord Bot Application which serve 24/7 in servers.`)
-    .setThumbnail('https://images-ext-2.discordapp.net/external/-6HBsi17MzRx9oAPtQkvRBUFoBLubMvS2F6uC8cEyjU/https/cdn.discordapp.com/avatars/747360029698424872/e2e04a707539bb9d974dc96ee9308e69.webp')
+    .setThumbnail(this.client.user.displayAvatarURL())
     .addField(' Current Presence', `*${this.client.presence.status}*`)
     .addField(' Bot Main Function', '*Entertainment*')
     .addField(' Birthday', '*24 Aug 2020*', true)

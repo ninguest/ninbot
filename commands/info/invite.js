@@ -28,17 +28,17 @@ module.exports = class InviteCommand extends Command {
 
   async run(message) {
 
-
-	  var inv = 'https://discord.com/oauth2/authorize?client_id=747360029698424872&scope=bot&permissions=2146958847';
+    const botid = this.client.user.id;
+	  var inv = `https://discord.com/oauth2/authorize?client_id=${botid}&scope=bot&permissions=2146958847`;
     var sinv = 'https://discord.gg/DyrdbJW';
-
+    
     const UserEmbed = new MessageEmbed()
     .setColor('RANDOM')
     .setTitle('NIN BOT INVITE LINK')
-    .setURL(`https://discord.com/oauth2/authorize?client_id=747360029698424872&scope=bot&permissions=2146958847`)
+    .setURL(`https://discord.com/oauth2/authorize?client_id=${botid}&scope=bot&permissions=2146958847`)
     //.setAuthor("User Profile", )
     //.setDescription(`🏷️UserTag: ${user.tag}`)
-    .setThumbnail('https://images-ext-2.discordapp.net/external/-6HBsi17MzRx9oAPtQkvRBUFoBLubMvS2F6uC8cEyjU/https/cdn.discordapp.com/avatars/747360029698424872/e2e04a707539bb9d974dc96ee9308e69.webp')
+    .setThumbnail(this.client.user.displayAvatarURL())
     .addField(' Invite Link: ', inv, true)
     .addField(' Bot Support Server', sinv, false)
     // .addField(' Bot Identifier', user.bot, true)
