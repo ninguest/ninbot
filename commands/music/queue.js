@@ -10,7 +10,7 @@ module.exports = class QueueCommand extends Command {
       group: 'music',
       memberName: 'queue',
       guildOnly: true,
-      description: 'Display the song queue'
+      description: 'Check songs which will be played next'
     });
   }
 
@@ -22,12 +22,18 @@ module.exports = class QueueCommand extends Command {
     }
 
     
-    if (message.guild.musicData.queue.length == 0)
-      return message.say('⚠️ There are no songs in queue!');
-      
-    const queue = message.guild.musicData.queue;
+     if (message.guild.musicData.queue.length == 0 && !message.guild.musicData.nowPlaying)
+       return message.say('⚠️ There are no songs in queue!');
 
-    const generatedEmbed = start => {
+       
+      //combine NowPlaying & Queue List to one Array with [map1].concat(map2)
+      // const nowP = message.guild.musicData.nowPlaying;
+      // const queueP = message.guild.musicData.queue;
+      // const queue = [nowP].concat(queueP);
+
+      const queue = message.guild.musicData.queue;
+
+      const generatedEmbed = start => {
       const end = queue.length < 10 ? queue.length : start+10;
       const current = queue.slice(start, end);
 
@@ -35,7 +41,7 @@ module.exports = class QueueCommand extends Command {
       const embed = new MessageEmbed()
         .setTitle(`💠 Music Queue`)
         .setColor("RANDOM")
-        .setFooter("Music-On!", 'https://images-ext-2.discordapp.net/external/xL5jLW8LPlnGzm-7leMrGP2U_ayxetHgVNzhlL0ctdM/https/images-ext-2.discordapp.net/external/-6HBsi17MzRx9oAPtQkvRBUFoBLubMvS2F6uC8cEyjU/https/cdn.discordapp.com/avatars/747360029698424872/e2e04a707539bb9d974dc96ee9308e69.webp')
+        .setFooter("Music-On!", this.client.user.displayAvatarURL())
         //.setFooter(`Use ${guild.commandPrefix}showlist <name> or <index> to check songs in list`);
       const result = current.map((song, index)=>{
         const name = song.title;

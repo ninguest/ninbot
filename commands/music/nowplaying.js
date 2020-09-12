@@ -69,22 +69,17 @@ module.exports = class NowPlayingCommand extends Command {
       } else if (key == 'minutes') {
         totalDurationInMS = totalDurationInMS + totalDurationObj[key] * 60000;
       } else if (key == 'seconds') {
-        totalDurationInMS = totalDurationInMS + totalDurationObj[key] * 100;
+        totalDurationInMS = totalDurationInMS + totalDurationObj[key] * 1000;
       }
     });
-    const playBackBarLocation = Math.round(
-      (passedTimeInMS / totalDurationInMS) * 10
+    const playBackBarLocation = Math.floor(
+      (passedTimeInMS / totalDurationInMS) * 20
     );
     let playBack = '';
-    for (let i = 1; i < 21; i++) {
-      if (playBackBarLocation == 0) {
-        playBack = ':musical_note:▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬';
-        break;
-      } else if (playBackBarLocation == 10) {
-        playBack = '▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬:musical_note:';
-        break;
-      } else if (i == playBackBarLocation * 2) {
-        playBack = playBack + ':musical_note:';
+
+    for (let i = 0; i < 21; i++) {
+      if (i == playBackBarLocation) {
+        playBack = playBack + ':white_flower:';
       } else {
         playBack = playBack + '▬';
       }

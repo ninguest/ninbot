@@ -22,6 +22,11 @@ module.exports = class LoopCommand extends Command {
 
   run(message, { numOfTimesToLoop }) {
 
+    if(numOfTimesToLoop <= 0){
+      message.reply("Sorry, I'm not going to let you do that. \n(*__Number of Loop__ should be above **0***)");
+      return;
+    }
+
     if (message.guild.triviaData.isTriviaRunning == true) {
       message.say('Command declined while running music quiz');
       return;
@@ -43,14 +48,18 @@ module.exports = class LoopCommand extends Command {
       return;
     }
 
-    for (let i = 0; i < numOfTimesToLoop; i++) {
-      message.guild.musicData.queue.unshift(message.guild.musicData.nowPlaying);
-    }
+    const npq = message.guild.musicData;
+    npq.loop = numOfTimesToLoop + 1;
+
+    
+    // for (let i = 0; i < numOfTimesToLoop; i++) {
+    //   message.guild.musicData.queue.unshift(message.guild.musicData.nowPlaying);
+    // }
 
     // prettier-ignore
     message.channel.send(
-      `${message.guild.musicData.nowPlaying.title} looped ${numOfTimesToLoop} ${
-        (numOfTimesToLoop == 1) ? 'time' : 'times'
+      `${message.guild.musicData.nowPlaying.title} will be looping for ${numOfTimesToLoop} ${
+        (numOfTimesToLoop == 1) ? 'more time' : 'more times'
       }`
     );
     return;

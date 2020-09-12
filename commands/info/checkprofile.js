@@ -28,7 +28,7 @@ module.exports = class CheckProfileCommand extends Command {
 
   async run(message) {
 
-	const user = message.mentions.users.first() || message.author;
+	  const user = message.mentions.users.first() || message.author;
     const UserID = user.id;
     const UserNickname = message.guild.member(UserID).nickname;
       

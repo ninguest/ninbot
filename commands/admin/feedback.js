@@ -20,12 +20,12 @@ module.exports = class FeedBackCommand extends Command {
       args: [
         {
           key: 'title',
-          prompt: 'Enter __**Title of Subject**__ for your REPORT\n \n \n_ _',
+          prompt: '\nEnter __**Title of Subject**__ for your REPORT\n \n_ _',
           type: 'string'
         },
         {
             key: 'content',
-            prompt: 'Enter __**Content of Feedback**__ for your REPORT\n \n \n_ _',
+            prompt: '\nEnter __**Content of Feedback**__ for your REPORT\n \n_ _',
             type: 'string'
         }
       ]
@@ -47,11 +47,16 @@ module.exports = class FeedBackCommand extends Command {
       .addField("__Title of Subject__", "*"+title+"*")
       .addField("__Content__", "*"+content+"*")
       .setFooter(utils.GetTimeZoneDate());
-      
-    this.client.users.cache.get(IC).send(FeedBackEmbed);
-    console.log(`${usertrigger.username} Successfully Sent a REPORT/REQUEST to Person-In-Charge`);
-    message.author.send("<@"+usertrigger.id+">"+"  You've Submitted a FeedBack to NIN Bot Creator on "+utils.GetTimeZoneDate()+ "!   :thumbsup: ")
-    }
     
+    try{
+      this.client.users.cache.get(IC).send(FeedBackEmbed);
+      console.log(`${usertrigger.username} Successfully Sent a REPORT/REQUEST to Person-In-Charge`);
+      message.author.send("<@"+usertrigger.id+">"+"  You've Submitted a FeedBack to NIN Bot Creator on "+utils.GetTimeZoneDate()+ "!   :thumbsup: ")
+    
+    } catch(e){
+      message.channel.send("ERROR Detected! Please Try Again. We sincerely apologize for the inconvenience caused.")
+      console.log(e);
+    }
+  }
   
 };

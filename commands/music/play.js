@@ -272,7 +272,7 @@ module.exports = class PlayCommand extends Command {
             ytdl(queue[0].url, {
               quality: 'highestaudio',
               highWaterMark: 1 << 25
-            })
+            }), {volume: message.guild.musicData.volume}
           )
           .on('start', function() {           
             message.guild.musicData.songDispatcher = dispatcher;
@@ -289,12 +289,31 @@ module.exports = class PlayCommand extends Command {
               
             // if (queue[1]) videoEmbed.addField('Next Song:', queue[1].title + `[${queue[1].duration}]`);
             // if (queue[1]) videoEmbed.setFooter(`Requested by: ${queue[1].memberDisplayName}`, queue[1].memberAvatar)
-            message.say(videoEmbed);
+            
             message.guild.musicData.nowPlaying = queue[0];
-            queue.shift();
+            
+            if(!message.guild.musicData.nowPlaying.printed) {
+              message.say(videoEmbed);
+              message.guild.musicData.nowPlaying.printed = true;
+            }
             return;
           })
           .on('finish', function() {
+
+            const npq = message.guild.musicData;
+            if(npq.loop == 1){
+
+              queue.shift();
+
+            }else{
+
+              npq.loop--;
+
+            }
+
+            
+
+            
             if (queue.length >= 1) {
               classThis.playSong(queue, message);
               return;
@@ -343,7 +362,8 @@ module.exports = class PlayCommand extends Command {
       thumbnail: video.thumbnails.high.url,
       voiceChannel,
       memberDisplayName: user.username,
-      memberAvatar: user.avatarURL('webp', false, 16)
+      memberAvatar: user.avatarURL('webp', false, 16),
+      printed: false
     };
   }
   // prettier-ignore

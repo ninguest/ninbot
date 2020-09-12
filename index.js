@@ -22,7 +22,9 @@ Structures.extend('Guild', function(Guild) {
         isPlaying: false,
         nowPlaying: null,
         songDispatcher: null,
-        volume: 1
+        volume: 0.4, 
+        loop: 1,
+        voiceConnection: null
       };
       this.triviaData = {
         isTriviaRunning: false,
