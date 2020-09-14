@@ -37,12 +37,13 @@ module.exports = class SayCommand extends Command {
       .setTitle("✨__NIN Bot Status__")
       //.setDescription(`🏷️UserTag: ${user.tag}`)
       .setThumbnail(this.client.user.displayAvatarURL())
-      .addField(' Total Serving Guild', `***${this.client.guilds.cache.size}***`)
-      .addField(' Total Users in Current Server', `***${cmemberCount}***`)
-      .addField(' Total Bots in Current Server', `***${botCount}***`)
-      .addField(' Bot WebSocket Ping', `***${this.client.ws.ping} ms***`)
+      .addField(' Total Serving Guild', `*${this.client.guilds.cache.size}*`)
+      .addField(' Total Users in Current Server', `*${cmemberCount}*`)
+      .addField(' Total Bots in Current Server', `*${botCount}*`)
+      .addField(' Bot WebSocket Ping', `*${this.client.ws.ping} ms*`)
       .addField(' Interaction Ping',`***${Date.now() - message.createdTimestamp} ms***` )
-      .addField(' Bot Last Restart Time', `\`\`\`${thisdate}\`\`\``)
+      .addField('Memory Usage', `*${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB*`)
+      .addField(' Bot Last Restart Time', `*${thisdate}*)
       
       .setTimestamp();
 
