@@ -19,7 +19,7 @@ exports.getrandomColor = () =>{
 
 exports.YTUIDGet = (url) =>{
 
-    const re = /^(https?:\/\/)?((www\.)?(youtube(-nocookie)?|youtube.googleapis)\.com.*(v\/|v=|vi=|vi\/|e\/|embed\/|user\/.*\/u\/\d+\/)|youtu\.be\/)([_0-9a-z-]+)/i;
+    const re = /^(https?:\/\/)?(([a-z]\.)?(youtube(-nocookie)?|youtube.googleapis)\.com.*(v\/|v=|vi=|vi\/|e\/|embed\/|user\/.*\/u\/\d+\/)|youtu\.be\/)([_0-9a-z-]+)/i;
         return url.match(re)[7];
 }
 

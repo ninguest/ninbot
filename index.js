@@ -7,8 +7,9 @@ const path = require('path');
 const utils = require('./resources/utils.js');
 const MongoDB = require('./resources/mongodb/data.js');
 const fs = require('fs');
+const prompt = require('discordjs-prompter');
 const ytvalid = require('youtube-validate');
-const songinput = require('./resources/mongodb/songdata.js').SongDataSource;
+const channelget = require('./resources/mongodb/anchanneldata.js').anChannelDataSource;
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -103,7 +104,7 @@ client.on('guildMemberAdd', member => {
 });
 
 //more hidden bot commands
-client.on('message', message => {
+client.on('message', async message => {
 
   //Admin Restart (process.exit())
   if (message.content == "ninrestart"){
@@ -131,6 +132,86 @@ client.on('message', message => {
   //Check NIN Bot's version
   if(message.content == 'ninbot' || message.content == '宁'){
     message.channel.send(`**Hi,** __${message.author}__ **. NIN Bot is currently Online and ready to serve.**\n\`\`\` \nNINBOT Version: Beta\nLast Update: September 2020\n \`\`\` `);
+  }
+
+  //[Developing] AnnounceMent
+  if(message.content=="ninan"){
+
+    const questionEmbed = new MessageEmbed()
+      .setColor('#5e03fc')
+      .setAuthor(client.user.tag, client.user.displayAvatarURL())
+      .setTitle(`Announcement Request`)
+      .addField("_ _", "_ _")
+      .addField("1️⃣ Embed Message", "*make announcement with Embed Message*")
+      .addField("2️⃣ Direct Message", "*make announcement with Direct Message*")
+      .addField("_ _", "_ _")
+      .addField("❌ cancel")
+      
+    let subject = null;
+    let description = null;
+    let rp = await prompt.choice(message.channel, {
+        question: questionEmbed,
+        choices:['1️⃣','2️⃣','❌'],
+        userId: message.author.id,
+        timeout: 60000
+    })
+    if(rp =='1️⃣'){
+
+      subject = (await prompt.message(message.channel,{
+        question: 'Enter Announcement Subject',
+        userId: message.author.id,
+        max: 1,
+        timeout: 60000,
+      })).first().content;
+    
+      description = (await prompt.message(message.channel, {
+        question: 'Enter Announcement Description',
+        userId: message.author.id,
+        max: 1,
+        timeout: 12000,
+      })).first().content;
+
+      const AnnounceEmbed = new MessageEmbed()
+      .setColor('#5e03fc')
+      .setTitle(subject)
+      .setAuthor(`${message.author.tag}`, message.author.displayAvatarURL())
+      .setDescription(`${description}`)
+      .setFooter(`${utils.GetTimeZoneDate()}`, client.user.displayAvatarURL());
+
+      const channelArray = await channelget.readAll()
+    
+      for(let i=0; i<channelArray.length; i++){
+        client.channels.cache.get(`${channelArray[i].uid}`).send(AnnounceEmbed);
+     }
+    }
+    else if(rp =='2️⃣'){
+      subject = (await prompt.message(message.channel,{
+        question: 'Enter Announcement Subject',
+        userId: message.author.id,
+        max: 1,
+        timeout: 60000,
+      })).first().content;
+    
+      description = (await prompt.message(message.channel, {
+        question: 'Enter Announcement Description',
+        userId: message.author.id,
+        max: 1,
+        timeout: 12000,
+      })).first().content;
+
+     
+      const channelArray = await channelget.readAll()
+      
+      for(let i=0; i<channelArray.length; i++){
+        client.channels.cache.get(`${channelArray[i].uid}`).send(`**__${subject}__**\n\n${description}`);
+     }
+    }
+   
+    else{
+      return message.reply("Announcement Request Canceled")
+    }
+    
+    
   }
 });
 

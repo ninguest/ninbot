@@ -3,7 +3,7 @@ const utils = require('../../resources/utils.js');
 const songinput = require('../../resources/mongodb/songdata.js').SongDataSource;
  
 
-module.exports = class SayCommand extends Command {
+module.exports = class MusicEntryCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'musicquizdataentry',

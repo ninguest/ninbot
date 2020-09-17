@@ -2,6 +2,7 @@
 const mongoose = require('mongoose');
 const jokerGuild = require('./Schema/guild.js');
 const songSchema = require('./Schema/song.js');
+const anChannelSchema = require('./Schema/anchannel.js');
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -21,6 +22,7 @@ class MongoDB{
             this.client = mongoose.connect(`${this.uri}`, options);
             this.Guild = mongoose.model('guild', jokerGuild.GuildSchema);
             this.Song = mongoose.model('song', songSchema.SongSchema);
+            this.anChannel = mongoose.model('anchannel', anChannelSchema.AnCHANNELSchema);
             console.log("Connected to MongoDB");
             return true;
         } catch (error) {
