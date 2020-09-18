@@ -1,19 +1,35 @@
+//Waiting to be apply
+const songdata = require('./resources/mongodb/songdata.js').SongDataSource;
+const fs = require('fs');
+const ytvalid = require('youtube-validate');
+
+
+//Discord Builds (Bot Structures)
 const { CommandoClient } = require('discord.js-commando');
 const { Structures } = require('discord.js');
+
+
+//Discord Ultilities (Bot Settings)
 const { MessageEmbed, Message, User, GuildMember } = require('discord.js');
-const songdata = require('./resources/mongodb/songdata.js').SongDataSource;
 const path = require('path');
-//const { prefix, token, discord_owner_id } = require('./config.json');
 const utils = require('./resources/utils.js');
 const MongoDB = require('./resources/mongodb/data.js');
-const fs = require('fs');
 const prompt = require('discordjs-prompter');
-const ytvalid = require('youtube-validate');
 const channelget = require('./resources/mongodb/anchanneldata.js').anChannelDataSource;
 const dotenv = require('dotenv');
 dotenv.config();
 
 
+/*
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+||                                                                                 ||
+||                       Structures for Discord-Commando                           ||
+||                                                                                 ||
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+*/
+
+
+// A Structure with extra Declaration for Music Dispatcher (MusicGuild Set-Up)
 Structures.extend('Guild', function(Guild) {
   class MusicGuild extends Guild {
     constructor(client, data) {
@@ -38,6 +54,8 @@ Structures.extend('Guild', function(Guild) {
   return MusicGuild;
 });
 
+
+// Discord-Commando Special Bot Setting
 const client = new CommandoClient({
   commandPrefix: process.env.PREFIX,
   owner: process.env.OID, // value comes from env
@@ -45,28 +63,40 @@ const client = new CommandoClient({
   unknownCommandResponse: false,
 });
 
+
+// Bot Commands Registry
 client.registry
   .registerDefaultTypes()
   .registerGroups([
-    ['music', '🎶 Play Music Anytime, Anywhere'],
-    ['nsfw', '🔞 Alert! NSFW Ahead!'],
-    ['game', '🎮 Small Games'],
-    ['guild', '🔥 Guild Commands'],
-    ['gifs', '✨ GIF Area'],
-    ['info', 'ℹ️ Information Centre'],
-    ['admin', '☘ Bot Admin'],
-    ['other', '💬 Random Commands']
-  ])
+      ['music', '🎶 Play Music Anytime, Anywhere'],
+      ['nsfw', '🔞 Alert! NSFW Ahead!'],
+      ['game', '🎮 Small Games'],
+      ['guild', '🔥 Guild Commands'],
+      ['gifs', '✨ GIF Area'],
+      ['info', 'ℹ️ Information Centre'],
+      ['admin', '☘ Bot Admin'],
+      ['other', '💬 Random Commands']
+    ])
   .registerDefaultGroups()
   .registerDefaultCommands({
-    help: true,
-    eval: false,
-    prefix: false,
-    commandState: false
-  })
+      help: true,
+      eval: false,
+      prefix: false,
+      commandState: false
+    })
   .registerCommandsIn(path.join(__dirname, 'commands'));
-  
 
+
+/*
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+||                                                                                 ||
+||                        Bot Client ON Events & Commands                          ||
+||                                                                                 ||
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+*/
+
+
+// Things Going to Happen when Bot is Ready Up
 client.once('ready', () => {
   console.log('Hello There! I am Ready to serve!');
   MongoDB.default.start();
@@ -76,6 +106,9 @@ client.once('ready', () => {
   });
 });
 
+
+
+// When Bot is Joining a Voice Channel
 client.on('voiceStateUpdate', async (___, newState) => {
   if (
     newState.member.user.bot &&
@@ -97,13 +130,18 @@ client.on('voiceStateUpdate', async (___, newState) => {
   }
 });
 
+
+
+//Things Going to Happen when Someone is Joining A Server
 client.on('guildMemberAdd', member => {
   const channel = member.guild.channels.cache.find(ch => ch.name === 'general'); // change this to the channel name you want to send the greeting to
   if (!channel) return;
   channel.send(`Welcome ${member}!`);
 });
 
-//more hidden bot commands
+
+
+//The Bot is Checking the Message Content (Hidden Commands which not Show in the help page)
 client.on('message', async message => {
 
   //Admin Restart (process.exit())
@@ -134,7 +172,7 @@ client.on('message', async message => {
     message.channel.send(`**Hi,** __${message.author}__ **. NIN Bot is currently Online and ready to serve.**\n\`\`\` \nNINBOT Version: Beta\nLast Update: September 2020\n \`\`\` `);
   }
 
-  //[Developing] AnnounceMent
+  //AnnounceMent to subscribed channels
   if(message.content=="ninan"){
 
     const questionEmbed = new MessageEmbed()
@@ -210,11 +248,17 @@ client.on('message', async message => {
     else{
       return message.reply("Announcement Request Canceled")
     }
-    
-    
   }
 });
 
+/*
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+||                                                                                 ||
+||                                 Bot Login Token                                 ||
+||                                                                                 ||
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+*/
 
+
+//The Bot is Logging with the Linked Token
 client.login(process.env.TOKEN);
-//client.login(token);

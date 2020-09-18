@@ -108,10 +108,9 @@ module.exports = class PlayCommand extends Command {
         return;
       }
     }
-    let id;
-    // This if statement checks if the user entered a youtube url, it can be any kind of youtube url
-    if (id = utils.YTUIDGet(query)) {
-      const video = await youtube.getVideoByID(id).catch(function() {
+    let id = utils.YTUIDGet(query);
+    if (id) {
+      const video = await youtube.getVideoByID(id[7]).catch(function() {
         message.say('There was a problem getting the video you provided!');
         return;
       });

@@ -1,5 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const fetch = require('node-fetch');
+const decodehtml = require('decode-html');
 const { Command } = require('discord.js-commando');
 
 module.exports = class RedditCommand extends Command {
@@ -18,18 +19,18 @@ module.exports = class RedditCommand extends Command {
       args: [
         {
           key: 'subreddit',
-          prompt: 'What subreddit would you like to search?',
+          prompt: 'What **__subreddit__** would you like to search?\n',
           type: 'string',
-          default: 'all',
+          // default: 'all',
           max: 50,
           wait: 20
         },
         {
           key: 'sort',
           prompt:
-            'What posts do you want to see? Select from best/hot/top/new/controversial/rising',
+            'What posts do you want to see? Select from **best** / **hot** / **top** / **new** / **controversial** / **rising**\n',
           type: 'string',
-          default: 'top',
+          // default: 'top',
           validate: function(sort) {
             return (
               sort === 'best' ||
@@ -41,72 +42,57 @@ module.exports = class RedditCommand extends Command {
             );
           },
           wait: 10
-        }
+        },
+        {
+          key: 'limit',
+          prompt: 'How many result post you need (Limit)?\n',
+          type: 'integer',
+          wait: 10
+        },
       ]
     });
   }
 
   // If you want to restrict nsfw posts, remove the commented out code below
 
-  async run(message, { subreddit, sort }) {
-    if (sort === 'top' || sort === 'controversial') {
-      await message.say(
-        `Do you want to get the ${sort} posts from past hour/week/month/year or all?`
-      );
-      try {
-        var t = await message.channel.awaitMessages(
-          msg =>
-            msg.content === 'hour' ||
-            msg.content === 'week' ||
-            msg.content === 'month' ||
-            msg.content === 'year' ||
-            msg.content === 'all',
-          {
-            max: 1,
-            maxProcessed: 1,
-            time: 60000,
-            errors: ['time']
+  async run(message, { subreddit, sort, limit }) {
+
+   fetch(`https://www.reddit.com/r/${subreddit}/${sort}/.json?limit=${limit}`) 
+    .then(res => res.json())
+    .then(json => {
+
+          const offset = json.data.dist - limit;
+
+          const dataArr = json.data.children;
+          for (let i = offset; i < dataArr.length; i++) {
+            // if (dataArr[i].data.over_18 === true) {
+            //   message.say(':no_entry: nsfw :no_entry:');
+            // } else {
+            message.say(embedPost(dataArr[i].data));
+            //}
           }
-        );
-        var timeFilter = t.first().content;
-      } catch (e) {
-        console.error(e);
-        return message.say('Please try again and enter a proper time filter');
-      }
-    }
-    fetch(
-      `https://www.reddit.com/r/${subreddit}/${sort}/.json?limit=10&t=${
-        timeFilter ? timeFilter : 'day'
-      }`
-    )
-      .then(res => res.json())
-      .then(json => {
-        const dataArr = json.data.children;
-        for (let i = 0; i < dataArr.length; i++) {
-          // if (dataArr[i].data.over_18 === true) {
-          //   message.say(':no_entry: nsfw :no_entry:');
-          // } else {
-          message.say(embedPost(dataArr[i].data));
-          //}
+        })
+        .catch(err => {
+          message.say('The subreddit you asked for was not found');
+          return console.error(err);
+        });
+
+      function embedPost(data) {
+
+        const url = (data.preview) ? decodehtml(data.preview.images[0].source.url) : null;
+
+        if (data.title.length > 255) {
+          data.title = data.title.substring(0, 252) + '...'; // discord.js does not allow embed title lengths greater than 256
         }
-      })
-      .catch(err => {
-        message.say('The subreddit you asked for was not found');
-        return console.error(err);
-      });
-    // returns an embed that is ready to be sent
-    function embedPost(data) {
-      let color = '#FE9004';
-      if (data.title.length > 255) {
-        data.title = data.title.substring(0, 252) + '...'; // discord.js does not allow embed title lengths greater than 256
+        
+        return new MessageEmbed()
+          .setColor("RANDOM") // if post is nsfw, color is red
+          .setTitle(data.title)
+          .setURL(`https://www.reddit.com${data.permalink}`)
+          .setImage(url)
+          .setFooter(`Upvotes: ${data.score} :thumbsup: `)
+          .setAuthor(data.author);
       }
-      if (data.over_18) color = '#cf000f';
-      return new MessageEmbed()
-        .setColor(color) // if post is nsfw, color is red
-        .setTitle(data.title)
-        .setURL(`https://www.reddit.com${data.permalink}`)
-        .setDescription(`Upvotes: ${data.score} :thumbsup: `)
-        .setAuthor(data.author);
-    }
+   
   }
 };
