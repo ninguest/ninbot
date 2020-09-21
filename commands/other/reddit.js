@@ -11,7 +11,7 @@ module.exports = class RedditCommand extends Command {
       group: 'other',
       memberName: 'reddit',
       description:
-        'Replies with 10 top daily posts in wanted subreddit, you can specify sorting and time',
+        'Replies with Reddit post',
       throttling: {
         usages: 2,
         duration: 10

@@ -8,6 +8,8 @@ const ytvalid = require('youtube-validate');
 const { CommandoClient } = require('discord.js-commando');
 const { Structures } = require('discord.js');
 
+const databasePlaylist = require('./resources/mongodb/playlistdata.js').PlaylistDataSource;
+
 
 //Discord Ultilities (Bot Settings)
 const { MessageEmbed, Message, User, GuildMember } = require('discord.js');
@@ -15,6 +17,7 @@ const path = require('path');
 const utils = require('./resources/utils.js');
 const MongoDB = require('./resources/mongodb/data.js');
 const prompt = require('discordjs-prompter');
+const ytdl = require('ytdl-core');
 const channelget = require('./resources/mongodb/anchanneldata.js').anChannelDataSource;
 const dotenv = require('dotenv');
 dotenv.config();
@@ -61,6 +64,7 @@ const client = new CommandoClient({
   owner: process.env.OID, // value comes from env
   invite: 'https://discord.gg/DyrdbJW',
   unknownCommandResponse: false,
+  disableEveryone: true
 });
 
 
@@ -183,7 +187,7 @@ client.on('message', async message => {
       .addField("1️⃣ Embed Message", "*make announcement with Embed Message*")
       .addField("2️⃣ Direct Message", "*make announcement with Direct Message*")
       .addField("_ _", "_ _")
-      .addField("❌ cancel")
+      .addField("❌ cancel", "_ _")
       
     let subject = null;
     let description = null;
@@ -244,9 +248,13 @@ client.on('message', async message => {
         client.channels.cache.get(`${channelArray[i].uid}`).send(`**__${subject}__**\n\n${description}`);
      }
     }
+
+    else if(!rp){
+      message.reply("Time's Up !!");
+    }
    
     else{
-      return message.reply("Announcement Request Canceled")
+      return message.reply("Announcement Request Canceled ❌")
     }
   }
 });

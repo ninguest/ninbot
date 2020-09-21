@@ -25,12 +25,6 @@ module.exports = class QueueCommand extends Command {
      if (message.guild.musicData.queue.length == 0 && !message.guild.musicData.nowPlaying)
        return message.say('⚠️ There are no songs in queue!');
 
-       
-      //combine NowPlaying & Queue List to one Array with [map1].concat(map2)
-      // const nowP = message.guild.musicData.nowPlaying;
-      // const queueP = message.guild.musicData.queue;
-      // const queue = [nowP].concat(queueP);
-
       const queue = message.guild.musicData.queue;
 
       const generatedEmbed = start => {
