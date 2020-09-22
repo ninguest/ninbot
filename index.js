@@ -20,6 +20,7 @@ const prompt = require('discordjs-prompter');
 const ytdl = require('ytdl-core');
 const channelget = require('./resources/mongodb/anchanneldata.js').anChannelDataSource;
 const dotenv = require('dotenv');
+const { sub } = require('ffmpeg-static');
 dotenv.config();
 
 
@@ -73,13 +74,13 @@ client.registry
   .registerDefaultTypes()
   .registerGroups([
       ['music', '🎶 Play Music Anytime, Anywhere'],
-      ['nsfw', '🔞 Alert! NSFW Ahead!'],
       ['game', '🎮 Small Games'],
-      ['guild', '🔥 Guild Commands'],
       ['gifs', '✨ GIF Area'],
+      ['guild', '🔥 Guild Commands'],
       ['info', 'ℹ️ Information Centre'],
+      ['other', '💬 Random Commands'],
       ['admin', '☘ Bot Admin'],
-      ['other', '💬 Random Commands']
+      ['nsfw', '🔞 Alert! NSFW Ahead!'],
     ])
   .registerDefaultGroups()
   .registerDefaultCommands({
@@ -204,14 +205,20 @@ client.on('message', async message => {
         userId: message.author.id,
         max: 1,
         timeout: 60000,
-      })).first().content;
+      })).first();
+
+      if(!subject) return message.reply("Hmm, I didn't receive anything for \`Subject\`");
+      subject = subject.content;
     
       description = (await prompt.message(message.channel, {
         question: 'Enter Announcement Description',
         userId: message.author.id,
         max: 1,
         timeout: 12000,
-      })).first().content;
+      })).first();
+
+      if(!description) return message.reply("Hmm, I didn't receive anything for \`Description\`");
+      description = description.content;
 
       const AnnounceEmbed = new MessageEmbed()
       .setColor('#5e03fc')

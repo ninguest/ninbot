@@ -2,7 +2,7 @@ const superagent = require("snekfetch");
 const Discord = require('discord.js');
 const { Command } = require('discord.js-commando');
 
-module.exports = class NekoCommand extends Command {
+module.exports = class NSFWAvatarCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'nsfw_avatar',

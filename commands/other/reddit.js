@@ -23,7 +23,7 @@ module.exports = class RedditCommand extends Command {
           type: 'string',
           // default: 'all',
           max: 50,
-          wait: 20
+          wait: 30
         },
         {
           key: 'sort',

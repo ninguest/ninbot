@@ -2,7 +2,7 @@ const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
 const utils = require('../../resources/utils.js');
 
-module.exports = class QueueCommand extends Command {
+module.exports = class ShortQueueCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'shortqueue',
