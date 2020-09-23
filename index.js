@@ -152,13 +152,11 @@ client.on('message', async message => {
   //Admin Restart (process.exit())
   if (message.content == "ninrestart"){
     
-    const useridcheck = 432425500208791554;
-    
     function restartbot() {
         process.exit();
       }
     
-    if (message.author.id == useridcheck){
+    if (message.author.id == process.env.OID){
         message.say(`⚠️Bot Client will be restart\n\`\`\`${utils.GetTimeZoneDate()}: Restart Request Success\`\`\``);
         console.log(`${utils.GetTimeZoneDate()} : Bot Restart from a Restart Request`);
 
@@ -167,7 +165,7 @@ client.on('message', async message => {
      }
     else{
         message.reply("You have no PERMISSION to restart NIN Bot");
-        console.log(`${utils.GetTimeZoneDate()} : ${message.author.username} is trying toRestart NIN Bot`);
+        console.log(`${utils.GetTimeZoneDate()} : ${message.author.tag} is trying toRestart NIN Bot`);
 
     }
   }
@@ -180,6 +178,7 @@ client.on('message', async message => {
   //AnnounceMent to subscribed channels
   if(message.content=="ninan"){
 
+    if(message.author.id != process.env.OID) return message.reply("You don't have the permission to use this command !!");
     const questionEmbed = new MessageEmbed()
       .setColor('#5e03fc')
       .setAuthor(client.user.tag, client.user.displayAvatarURL())
