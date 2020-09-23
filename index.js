@@ -213,7 +213,7 @@ client.on('message', async message => {
         question: 'Enter Announcement Description',
         userId: message.author.id,
         max: 1,
-        timeout: 12000,
+        timeout: 240000,
       })).first();
 
       if(!description) return message.reply("Hmm, I didn't receive anything for \`Description\`");
