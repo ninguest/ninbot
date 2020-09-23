@@ -3,7 +3,7 @@ const utils = require('../../resources/utils.js');
 const prompt = require('discordjs-prompter');
 const fetch = require('node-fetch');
 const { newsAPI } = require('../../config.json');
-const { Command } = require('discord.js-commando');
+const { Command, util } = require('discord.js-commando');
 const dotenv = require('dotenv');
 const { get } = require('mongoose');
 dotenv.config();
@@ -130,7 +130,7 @@ module.exports = class EmojiCommand extends Command {
 
             if(!utils.ISTHISNUM(indexbyuser)) return message.reply("Please enter a valid index number.");
 
-            if(indexbyuser == 0 || indexbyuser > queue.length) return message.reply("Index number can only in range of \`1\` to \`"+queue.length+"\`");
+            if(indexbyuser == 0 || indexbyuser > queue.length) return utils.WarningOnUnvalidIndexInput(queue.length, message);
 
             let selectedemoji = emojicache.get(queue[indexbyuser - 1]);
             const selectedEmbed = new MessageEmbed()

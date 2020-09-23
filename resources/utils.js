@@ -157,3 +157,8 @@ exports.ISTHISNUM = (num) =>{
   return !isNaN(num);
 }
 
+exports.WarningOnUnvalidIndexInput = (sizeorlengthnum, message)=>{
+  if(sizeorlengthnum==1) return message.reply("You've entered invaild index number. Please try again with index number of \`1\`");
+  else return message.reply(`You've entered invalid index number. The range of valid index number is \`1\` to \`${sizeorlengthnum}\``);
+}
+

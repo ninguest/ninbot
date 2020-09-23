@@ -111,7 +111,7 @@ module.exports = class PlaylistCommand extends Command {
          if(!selectedp) return message.reply("Time's Up !!");
          selectedp = selectedp.content;
          if(utils.ISTHISNUM(selectedp)){
-           if(selectedp == 0 || selectedp > playlistavailable.length) return message.reply(`You can only enter index number in range of \`1\` to \`${playlistavailable.length}\``);
+           if(selectedp == 0 || selectedp > playlistavailable.length) return utils.WarningOnUnvalidIndexInput(playlistavailable.length, message);
            selectedp = playlistavailable[selectedp - 1].playlist;
          }
 
@@ -142,7 +142,7 @@ module.exports = class PlaylistCommand extends Command {
          }
 
          if(utils.ISTHISNUM(selectedp)){
-          if(selectedp == 0 || selectedp > queueid.length) return message.reply("Invalid Index Entered");
+          if(selectedp == 0 || selectedp > queueid.length) return utils.WarningOnUnvalidIndexInput(queueid.length, message);
           selectedp = selectedp - 1;
           this.client.registry.commands.get("play").run(message, {query: `https://youtu.be/${queueid[selectedp]}`});
           return;
@@ -203,7 +203,7 @@ module.exports = class PlaylistCommand extends Command {
           response = response.content;
 
           if(utils.ISTHISNUM(response)){
-            if(response == 0||response > queue.length) return message.reply(`You can only enter index number in range of \`1\` to \`${queue.length}\``);
+            if(response == 0||response > queue.length) return utils.WarningOnUnvalidIndexInput(queue.length, message);
             response = queue[response - 1].playlist;
           }
 
@@ -240,7 +240,7 @@ module.exports = class PlaylistCommand extends Command {
           choice4 = choice4.content;
 
           if(utils.ISTHISNUM(choice4)){
-            if(choice4 == 0 || choice4 > queue.length) return message.reply(`You can only enter index number in range of \`1\` to \`${queue.length}\``);
+            if(choice4 == 0 || choice4 > queue.length) return utils.WarningOnUnvalidIndexInput(queue.length, message)
             choice4 = (queue[choice4 - 1].playlist);
           }
 
@@ -324,7 +324,7 @@ module.exports = class PlaylistCommand extends Command {
             deleteindex = deleteindex.content;
             if(utils.ISTHISNUM(deleteindex) == false) return message.reply("Please give a valid index number !");
             
-            if(deleteindex == 0 || deleteindex > total) return message.reply(`Your index number should be in range of \`1\` to \`${total}\``);
+            if(deleteindex == 0 || deleteindex > total) return utils.WarningOnUnvalidIndexInput(total, message);
 
             deleteindex = deleteindex - 1;
 
