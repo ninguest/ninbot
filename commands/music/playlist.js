@@ -278,11 +278,13 @@ module.exports = class PlaylistCommand extends Command {
               if(utils.ISTHISNUM(bbchoice4) == false) return message.reply("Please give a valid number.");
 
               let urls = (await prompt.message(message.channel, {
-                question: `You may start entering ${bbchoice4} music url now.\n\n\`Error may occur if nothing is entered\``,
+                question: `You may start entering ${bbchoice4} music url now.`,
                 userId: message.author.id,
                 max: bbchoice4,
                 timeout:(45000 * bbchoice4) 
               }))
+
+              if(!urls) return message.reply("Time's Up !!");
               
               for(let value of urls.values()){
                 
