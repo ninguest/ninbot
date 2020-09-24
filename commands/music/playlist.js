@@ -62,23 +62,24 @@ module.exports = class PlaylistCommand extends Command {
           .addField("2️⃣  __Delete Song(s)__", "_ _")
           .addField("_ _", "_ _")
           .addField("❌ cancel", "_ _")
-          .addField("_ _", "Note: *Error will occur when nothing is entered!*")
+          //.addField("_ _", "Note: *Error will occur when nothing is entered!*")
           .setFooter(`${message.author.tag}`, message.author.displayAvatarURL())
 
         const common = new MessageEmbed()
           .setColor('#eb3489')
-          .setDescription("Which Playlist you want to edit? (enter playlist name)")
-          .addField("_ _", "\`Error may occur if nothing is entered\`")
+          .setDescription("Which Playlist you want to edit?")
+          //.addField("_ _", "\`Error may occur if nothing is entered\`")
+          .setFooter("Enter index to select")
             
         const common2 = new MessageEmbed()
           .setColor('#eb3489')
           .setDescription("How many song(s) you want to **ADD** to this Playlist?")
-          .addField("_ _", "\`Error may occur if nothing is entered\`")
+          //.addField("_ _", "\`Error may occur if nothing is entered\`")
 
         const common3 = new MessageEmbed()
           .setColor('#eb3489')
           .setDescription("Select an index to **DELETE** song")
-          .addField("_ _", "\`Error may occur if nothing is entered\`")
+          //.addField("_ _", "\`Error may occur if nothing is entered\`")
 
           
         let rp = (await prompt.message(message.channel, {
@@ -285,22 +286,67 @@ module.exports = class PlaylistCommand extends Command {
               
               for(let value of urls.values()){
                 
-                let videoid = utils.YTUIDGet(value.content);
-                
-                if(!videoid) {
-                  message.reply(`Invalid URL inserted !!\n\n\`${value.content}\``);
-                  continue;
+                //If there are suckers who type in playlist url, get videos url one by one
+                if(
+                  value.content.match(
+                  /^(?!.*\?.*\bv=)https:\/\/www\.youtube\.com\/.*\?.*\blist=.*$/
+                ))
+                {
+                  //value.content is playlist (one of the input)
+                  let query = value.content;
+
+                  //use API to check the playlist
+                  const playlist = await youtube.getPlaylist(query).catch(function() {
+                    message.say('Playlist is either private or it does not exist!');
+                    return;
+                  });
+
+                  //While getting broken url
+                  const videosArr = await playlist.getVideos().catch(function() {
+                    message.say(
+                      'There was a problem getting one of the videos in the playlist!'
+                    );
+                    return;
+                  });
+
+                  //Fetching each videos in Playlist to MongoDB database
+                  for (let i = 0; i < videosArr.length; i++) {
+
+                    //if video url invalid
+                    if (videosArr[i].raw.status.privacyStatus == 'private') {
+                      
+                      //ignore error
+                      continue;
+                    } else {
+                      try {
+                        const video = await videosArr[i].fetch();
+                        await databaseplaylist.AddSongintoArray(message.author.id, currentplaylist, video.id, video.title, message);
+                      } catch (err) {
+                        return console.error(err);
+                      }
+                    }
+                  } // end of data entry loop 
+
+
                 }
+                else
+                {
+                  let videoid = utils.YTUIDGet(value.content);
+                  
+                  if(!videoid) {
+                    message.reply(`Invalid URL inserted !!\n\n\`${value.content}\``);
+                    continue;
+                  }
 
-                //let info = (await ytdl.getInfo(value.content)).videoDetails.title
-                let getvideowithAPI = await youtube.getVideo(value.content);
+                  //let info = (await ytdl.getInfo(value.content)).videoDetails.title
+                  let getvideowithAPI = await youtube.getVideo(value.content);
 
-                if(!getvideowithAPI) return message.reply("I failed to get video info from \`"+ value.content+"\`");
-                getvideowithAPI = getvideowithAPI.title
-                
-                //Can choose info retrieve method (API or YTDL)
-                await databaseplaylist.AddSongintoArray(message.author.id, currentplaylist, videoid[7], getvideowithAPI, message);
-
+                  if(!getvideowithAPI) return message.reply("I failed to get video info from \`"+ value.content+"\`");
+                  getvideowithAPI = getvideowithAPI.title
+                  
+                  //Can choose info retrieve method (API or YTDL)
+                  await databaseplaylist.AddSongintoArray(message.author.id, currentplaylist, videoid[7], getvideowithAPI, message);
+                }
              }    
              
           }
