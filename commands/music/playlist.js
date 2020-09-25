@@ -23,7 +23,7 @@ module.exports = class PlaylistCommand extends Command {
     constructor(client) {
       super(client, {
         name: 'playlist',
-        //aliases: ['', ''],
+        aliases: ['pl'],
         group: 'music',
         memberName: 'playlist',
         description:
