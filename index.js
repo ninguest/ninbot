@@ -178,6 +178,8 @@ client.on('message', async message => {
   //AnnounceMent to subscribed channels
   if(message.content=="ninan"){
 
+    message.delete();
+
     if(message.author.id != process.env.OID) return message.reply("You don't have the permission to use this command !!");
     const questionEmbed = new MessageEmbed()
       .setColor('#5e03fc')
