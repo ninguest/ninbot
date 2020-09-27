@@ -32,7 +32,6 @@ module.exports = class FutanariCommand extends Command {
             sort === 'bj' ||
             sort === 'blowjob' ||
             sort === 'boobs'||
-            sort === 'cat' ||
             sort === 'classic' ||
             sort === 'cuddle' ||
             sort === 'cum' ||
@@ -101,7 +100,7 @@ const helpembed = new Discord.MessageEmbed()
     .setTitle("Nekos.Life available 'poison'")
     .setURL("https://www.rubydoc.info/github/Nekos-Life/nekos.rb/master/NekosLife/Client")
     .setColor(`#eb5534`)
-    .setDescription("**anal\n avatar\n bj\n blowjob\n boobs\n cat\n classic\n cuddle\n cum\n cum_jpg\n ero\n erofeet\n erok\n erokemo\n eron\n eroyuri\n feed\n feet\n feetg\n femdom\n fox_girl\n futanari\n gasm\n gecg\n hentai\n holo\n holoero\n hololewd\n hug\n kemonomimi\n keta\n kiss\nkuni\n les\n lewd\n lewdk\n lewdkemo\n lizard\n meow\n neko\n ngif\n nsfw_avatar\n nsfw_neko_gif\n pat\n poke\n pussy\n pussy_jpg\n pwankg\n Random_hentai_gif\n slap\n smallboobs\n solo\n solog\n spank\n tickle\n tits\n trap\n waifu\n wallpaper\n yuri\n**")
+    .setDescription("**anal\n avatar\n bj\n blowjob\n boobs\n classic\n cuddle\n cum\n cum_jpg\n ero\n erofeet\n erok\n erokemo\n eron\n eroyuri\n feed\n feet\n feetg\n femdom\n fox_girl\n futanari\n gasm\n gecg\n hentai\n holo\n holoero\n hololewd\n hug\n kemonomimi\n keta\n kiss\nkuni\n les\n lewd\n lewdk\n lewdkemo\n lizard\n meow\n neko\n ngif\n nsfw_avatar\n nsfw_neko_gif\n pat\n poke\n pussy\n pussy_jpg\n pwankg\n Random_hentai_gif\n slap\n smallboobs\n solo\n solog\n spank\n tickle\n tits\n trap\n waifu\n wallpaper\n yuri\n**")
 if(getsort == 'help') return message.channel.send(helpembed);
 
 let howmany = (await prompt.message(message.channel, {
