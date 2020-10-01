@@ -158,8 +158,16 @@ module.exports = class GlobalNewsCommand extends Command {
 
       country = askcountry.content;
 
+      let check;
+      if(country!= `cancel`){
+        check = country;
+      }
+
+      else{
+        check = 'not set';
+      }
       message.channel.bulkDelete(3);
-      queryembed.setDescription(`_ _\nCategory: \`${category}\`\nCountry: \`${country}\``);
+      queryembed.setDescription(`_ _\nCategory: \`${category}\`\nCountry: \`${check}\``);
       message.channel.send(queryembed);
 
       result = `https://newsapi.org/v2/top-headlines?category=${category}`;
