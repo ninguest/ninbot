@@ -324,12 +324,15 @@ module.exports = class PlayCommand extends Command {
             }
           })
           .on('error', function(e) {
-            message.say('Cannot play song');
+
+            message.guild.musicData.songDispatcher.end();
+            
+            message.say('Skipped Song. Error Occured');
             
             // message.guild.musicData.queue.length = null;
             // message.guild.musicData.isPlaying = false;
             // message.guild.musicData.nowPlaying = null;
-            message.guild.musicData.songDispatcher.end();
+            
             // message.guild.me.voice.channel.leave();
             console.error(e);
             return;

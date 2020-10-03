@@ -30,7 +30,7 @@ module.exports = class VolumeCommand extends Command {
   run(message) {
 
     const args = message.content.split(' ');
-    if (!args[1]) return message.channel.send(`Current Volume : ${message.guild.musicData.volume * 100} %`)
+    if (!args[1]) return message.channel.send(`**Current Volume :** ${message.guild.musicData.volume * 100} %`)
 
     //const voiceChannel = message.member.voice.channel;
     //if (!voiceChannel) return message.reply('Join a channel and try again');
