@@ -129,13 +129,19 @@ module.exports = class EmojiCommand extends Command {
 
             let selectedemoji = emojicache.get(queue[indexbyuser - 1]);
             
-            let emojisend = `<:${selectedemoji.name}:${selectedemoji.id}>`;
-            if(selectedemoji.animated){
-              emojisend = `<a:${selectedemoji.name}:${selectedemoji.id}>`;
-            }
+            const sendembed = new MessageEmbed()
+                  .setImage(selectedemoji.url)
+                  .setColor("#f542ad")
+                  .setFooter(`${selectedemoji.name}[${selectedemoji.guild.name}]`)
+
+
+            // let emojisend = `<:${selectedemoji.name}:${selectedemoji.id}>`;
+            // if(selectedemoji.animated){
+            //   emojisend = `<a:${selectedemoji.name}:${selectedemoji.id}>`;
+            // }
 
             message.channel.bulkDelete(2);
-            message.channel.send(emojisend);
+            message.channel.send(sendembed);
             
 
         }

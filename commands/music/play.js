@@ -326,7 +326,6 @@ module.exports = class PlayCommand extends Command {
           .on('error', function(e) {
 
             message.guild.musicData.songDispatcher.end();
-            
             message.say('Skipped Song. Error Occured');
             
             // message.guild.musicData.queue.length = null;
