@@ -317,22 +317,22 @@ module.exports = class PlayCommand extends Command {
               message.guild.musicData.isPlaying = false;
               message.guild.musicData.nowPlaying = null;
               message.guild.musicData.songDispatcher = null;
-              /*if (message.guild.me.voice.channel) {
+              if (message.guild.me.voice.channel) {
                 message.guild.me.voice.channel.leave();
                 return;
-              }*/
+              }
             }
           })
           .on('error', function(e) {
 
             message.guild.musicData.songDispatcher.end();
-            message.say('Skipped Song. Error Occured');
+            message.say(`OMG! Error Occured ! I'm gonna leave now. Please summon me again`);
             
-            // message.guild.musicData.queue.length = null;
-            // message.guild.musicData.isPlaying = false;
-            // message.guild.musicData.nowPlaying = null;
+            message.guild.musicData.queue.length = null;
+            message.guild.musicData.isPlaying = false;
+            message.guild.musicData.nowPlaying = null;
             
-            // message.guild.me.voice.channel.leave();
+            message.guild.me.voice.channel.leave();
             console.error(e);
             return;
           });
