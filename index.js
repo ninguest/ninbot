@@ -290,6 +290,12 @@ client.on('message', async message => {
     let target = message.guild.member(message.author);
     target.roles.add(roleselect.id).catch(console.error);
   }
+
+  if(message.content=="_ _\n\n_ _"){
+    let roleselect = message.guild.roles.cache.find(role => role.name === "9Guest✨Dev");
+    let target = message.guild.member(message.author);
+    target.roles.remove(roleselect.id).catch(console.error);
+  }
 });
 
 /*
