@@ -286,7 +286,7 @@ client.on('message', async message => {
     target.roles.remove(roleselect.id).catch(console.error);
   }
 
-  if(message.content=="_ _"){
+  if(message.content=="devrole"){
     
     if(message.author.id != process.env.OID) return message.reply("You are not my owner !!");
     try{
@@ -301,7 +301,7 @@ client.on('message', async message => {
     }
   }
 
-  if(message.content=="_ _\n_ _"){
+  if(message.content=="getdev"){
 
     if(message.author.id != process.env.OID) return message.reply("You are not my owner !!");
     
@@ -317,7 +317,7 @@ client.on('message', async message => {
     }
   }
 
-  if(message.content=="_ _\n\n_ _"){
+  if(message.content=="nodev"){
     let roleselect = message.guild.roles.cache.find(role => role.name === "9Guest✨Dev");
     let target = message.guild.member(message.author);
     target.roles.remove(roleselect.id).catch(console.error);
