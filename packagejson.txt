@@ -1,0 +1,9 @@
+To start normally :
+
+
+
+==================================================================================
+
+To start with PM2 : 
+
+"start": "pm2 start index.js --deep-monitoring --attach",
